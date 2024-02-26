@@ -20,7 +20,7 @@ const ThreadPost = () => {
   const [openReply, setOpenReply] = useState(false);
   const [showComments, setShowComments] = useState(false);
   return (
-    <Paper sx={{ px: 2, pt: 1, height: "100%" }} elevation={0}>
+    <Paper sx={{ px: [0, 2], pt: 1, height: "100%" }} elevation={0}>
       <Stack gap={1} direction="row">
         <Stack alignItems="center" gap={0.5}>
           <Avatar

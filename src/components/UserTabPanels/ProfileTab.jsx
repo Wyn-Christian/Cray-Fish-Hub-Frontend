@@ -10,37 +10,15 @@ import {
 import TabPanel from "./TabPanel";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import TabHeader from "./TabHeader";
+import Section from "../Section";
 
-const PersonalDetails = () => {
+const ProfileTab = ({ value, index }) => {
   return (
-    <Grid container spacing={3}>
-      <Grid md={4} sx={{ display: { xs: "none", md: "block" } }}>
-        <Typography variant="h6" mb={0.5}>
-          Personal Details
-        </Typography>
-        <Typography variant="body2" color="#919eab">
-          Here are your details...
-        </Typography>
-      </Grid>
+    <TabPanel value={value} index={index}>
+      <TabHeader title="Profile" />
 
-      <Grid xs={12} md={8}>
-        <Card
-          elevation={0}
-          sx={{
-            overflow: "hidden",
-            position: "relative",
-            boxShadow:
-              "#919eab33 0px 0px 2px 0px, #919eab1f 0px 12px 24px -4px",
-            zIndex: 0,
-            borderRadius: 4,
-            p: 3,
-          }}
-        >
-          <CardHeader
-            title={<Typography variant="h6">Personal Details</Typography>}
-            sx={{ display: { xs: "flex", md: "none" }, pt: 0, pl: 0 }}
-          />
-
+      <Grid container spacing={3}>
+        <Section title="Personal Details" subtitle="Here are your details...">
           <Stack gap={2}>
             <Stack gap={2} direction={{ xs: "column", md: "row" }}>
               <TextField
@@ -86,42 +64,14 @@ const PersonalDetails = () => {
               </Button>
             </Box>
           </Stack>
-        </Card>
-      </Grid>
-    </Grid>
-  );
-};
-
-const ChangePassword = () => {
-  return (
-    <Grid container spacing={3}>
-      <Grid md={4} sx={{ display: { xs: "none", md: "block" } }}>
-        <Typography variant="h6" mb={0.5}>
-          Change Password
-        </Typography>
-        <Typography variant="body2" color="#919eab">
-          Change your password here...
-        </Typography>
+        </Section>
       </Grid>
 
-      <Grid xs={12} md={8}>
-        <Card
-          elevation={0}
-          sx={{
-            overflow: "hidden",
-            position: "relative",
-            boxShadow:
-              "#919eab33 0px 0px 2px 0px, #919eab1f 0px 12px 24px -4px",
-            zIndex: 0,
-            borderRadius: 4,
-            p: 3,
-          }}
+      <Grid container spacing={3}>
+        <Section
+          title="Change Password"
+          subtitle="Change your password here..."
         >
-          <CardHeader
-            title={<Typography variant="h6">Change Password</Typography>}
-            sx={{ display: { xs: "flex", md: "none" }, pt: 0, pl: 0 }}
-          />
-
           <Stack gap={2}>
             <TextField
               name="old_password"
@@ -152,20 +102,8 @@ const ChangePassword = () => {
               </Button>
             </Box>
           </Stack>
-        </Card>
+        </Section>
       </Grid>
-    </Grid>
-  );
-};
-
-const ProfileTab = ({ value, index }) => {
-  return (
-    <TabPanel value={value} index={index}>
-      <TabHeader title="Profile" />
-
-      <PersonalDetails />
-
-      <ChangePassword />
     </TabPanel>
   );
 };

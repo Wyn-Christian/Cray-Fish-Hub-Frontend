@@ -21,11 +21,11 @@ import {
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import TabPanel from "./TabPanel";
 import TabHeader from "./TabHeader";
-import UploadDocuments from "../UploadDocument";
+import UploadDocument from "../UploadDocument";
 
 import DownloadIcon from "@mui/icons-material/Download";
 
-const UploadResources = () => {
+const UploadResource = () => {
   const [category, setCategory] = useState("");
   const [file, setFile] = useState(null);
 
@@ -88,7 +88,7 @@ const UploadResources = () => {
               fullWidth
             />
 
-            <UploadDocuments file={file} setFile={setFile} />
+            <UploadDocument file={file} setFile={setFile} />
 
             <Box alignSelf="flex-end" width={{ xs: "100%", sm: "auto" }}>
               <Button variant="contained" fullWidth>
@@ -217,7 +217,7 @@ const ResourcesTab = ({ value, index }) => {
 
   return (
     <TabPanel value={value} index={index}>
-      <UploadResources />
+      <UploadResource />
 
       <TabHeader title="My Resources" />
 

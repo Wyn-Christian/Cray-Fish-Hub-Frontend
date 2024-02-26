@@ -1,5 +1,13 @@
 import Header from "@/components/Header";
-import { Box, Container, Stack, Typography, Avatar } from "@mui/material";
+import ProfileLink from "@/components/ProfileLink";
+import {
+  Box,
+  Container,
+  Stack,
+  Typography,
+  Avatar,
+  ListItemText,
+} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Link from "next/link";
 
@@ -12,6 +20,10 @@ const ArticlePaper = ({ title, content, authorId }) => {
           overflow: "hidden",
           position: "relative",
           height: "100%",
+          "&:hover": {
+            boxShadow:
+              "#919eab33 0px 0px 2px 0px, #919eab1f 0px 12px 24px -4px",
+          },
         }}
       >
         <Stack
@@ -22,27 +34,6 @@ const ArticlePaper = ({ title, content, authorId }) => {
           justifyContent="space-between"
         >
           <Stack gap={0.5}>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                lineHeight: 1.5,
-                fontWeight: 400,
-                color: "#919eab",
-                fontSize: "0.75rem",
-              }}
-            >
-              18 Feb 2024
-              <Box
-                mx={1}
-                width={4}
-                height={4}
-                borderRadius="50%"
-                bgcolor="currentcolor"
-              />
-              5 minutes read
-            </Stack>
-
             <Box
               component={Link}
               href="/articles/123"
@@ -71,17 +62,12 @@ const ArticlePaper = ({ title, content, authorId }) => {
             </Typography>
           </Stack>
 
-          <Stack
-            direction="row"
-            sx={{ alignItems: "center", pt: 1.5, color: "#212b36" }}
-          >
-            <Avatar
-              src="/assets/profile/pic-6.jpg"
-              alt="Article Author"
-              sx={{ mr: 1 }}
-            />
-            Article Author
-          </Stack>
+          <ProfileLink
+            href="/profile/123"
+            src="/assets/profile/pic-1.jpg"
+            name="Article Author"
+            date="Feb 23, 2024"
+          />
         </Stack>
       </Stack>
     </Grid>

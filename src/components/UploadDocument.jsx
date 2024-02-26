@@ -7,7 +7,7 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import ItemDocument from "./ItemDocument";
 
-const UploadDocuments = ({ file, setFile }) => {
+const UploadDocument = ({ file, setFile }) => {
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles);
   }, []);
@@ -82,10 +82,8 @@ const UploadDocuments = ({ file, setFile }) => {
       ) : (
         <ItemDocument removeFile={removeFile} file={file[0]} />
       )}
-
-      {/* {!files || <Box my={3}>{files}</Box>} */}
     </Box>
   );
 };
 
-export default UploadDocuments;
+export default UploadDocument;

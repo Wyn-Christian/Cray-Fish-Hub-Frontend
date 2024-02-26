@@ -1,3 +1,5 @@
+import DisplayContent from "@/components/DisplayContent";
+import articleSample from "@/constants/articleSample";
 import {
   Avatar,
   Box,
@@ -78,19 +80,7 @@ const ArticleDetailPage = () => {
       <Container maxWidth="sm" sx={{ mt: 3 }}>
         <Stack gap={3}>
           <Box>
-            <Typography>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-              quae dicta libero non repudiandae quos. Odit suscipit aliquam ab.
-              Earum et repudiandae, facere, vitae itaque facilis sapiente
-              maiores autem quod sequi tenetur beatae esse ipsam quasi eaque
-              distinctio placeat adipisci eius maxime ea ullam enim! Odio iste
-              fugiat deserunt quas, dolore id, quasi sit repudiandae sequi dicta
-              deleniti debitis fugit nobis assumenda sapiente. Alias error nisi
-              repellat, modi distinctio nobis sint voluptatem quod id architecto
-              nostrum aliquam quis reprehenderit quia accusantium ab, tempora
-              enim animi adipisci blanditiis odit? Voluptas voluptatibus ut
-              tenetur fugit impedit libero itaque ex aliquam rerum velit.
-            </Typography>
+            <DisplayContent content={articleSample} />
           </Box>
 
           <Divider />

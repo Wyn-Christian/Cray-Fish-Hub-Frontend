@@ -3,11 +3,12 @@ import prettyBytes from "pretty-bytes";
 
 import { Box, IconButton, ListItemText, Stack } from "@mui/material";
 
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import ClearIcon from "@mui/icons-material/Clear";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 import getFileIcon from "@/utils/getFileIcon";
 
-const ItemDocument = ({ removeFile, file }) => {
+const ItemDocument = ({ removeFile, downloadFile, file }) => {
   const fileSize =
     typeof file.size === "number" ? prettyBytes(file.size) : "Unknown size";
   return (
@@ -42,9 +43,15 @@ const ItemDocument = ({ removeFile, file }) => {
         secondary={fileSize}
         secondaryTypographyProps={{ color: "#919eab" }}
       />
-      <IconButton size="small" onClick={() => removeFile(file.path)}>
-        <DeleteForeverIcon />
-      </IconButton>
+      {removeFile ? (
+        <IconButton size="small" onClick={() => removeFile(file.path)}>
+          <ClearIcon />
+        </IconButton>
+      ) : (
+        <IconButton size="small" onClick={() => {}}>
+          <FileDownloadIcon />
+        </IconButton>
+      )}
     </Stack>
   );
 };

@@ -27,10 +27,20 @@ const PostComment = () => {
 
           <Stack>
             <Stack>
-              <Stack direction="row" alignItems="center" gap={1}>
+              <Stack
+                direction={["column", "row"]}
+                alignItems={{ sm: "center" }}
+                gap={[0, 1]}
+              >
                 <Typography variant="subtitle2">Comment Author</Typography>
 
-                <Box width={4} height={4} borderRadius="50%" bgcolor="#333" />
+                <Box
+                  width={4}
+                  height={4}
+                  borderRadius="50%"
+                  bgcolor="#333"
+                  display={["none", "block"]}
+                />
 
                 <Typography variant="caption" color="#888">
                   May 19, 2024

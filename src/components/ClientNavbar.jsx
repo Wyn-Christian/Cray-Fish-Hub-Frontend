@@ -8,6 +8,7 @@ import {
   useScrollTrigger,
   Typography,
   Stack,
+  Avatar,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,8 +38,12 @@ const client_pages = [
     route: "/analysis",
   },
   {
-    title: "User Profile",
+    title: "User",
     route: "/user",
+  },
+  {
+    title: "Profile",
+    route: "/profile/123",
   },
 ];
 
@@ -54,6 +59,8 @@ const auth_pages = [
 ];
 
 const ClientNavBar = () => {
+  const isLogin = false;
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -71,6 +78,8 @@ const ClientNavBar = () => {
     >
       <Container>
         <Toolbar disableGutters>
+          <MobileClientNavbar isLogin={isLogin} />
+
           <Stack direction="row" alignItems="center" gap={1}>
             <Image
               src="/assets/logo-2.svg"
@@ -78,7 +87,11 @@ const ClientNavBar = () => {
               width={45}
               height={45}
             />
-            <Typography variant="h5" letterSpacing={0.01}>
+            <Typography
+              variant="h5"
+              letterSpacing={0.01}
+              display={["none", "block"]}
+            >
               Cray Fish Hub
             </Typography>
           </Stack>
@@ -105,44 +118,59 @@ const ClientNavBar = () => {
             })}
           </Stack>
 
-          <Box display={{ xs: "none", md: "inline-block" }}>
-            <Button
-              LinkComponent={Link}
-              href="/login"
-              sx={{ my: 2, color: "#000" }}
-              disableRipple
-            >
-              Login
-            </Button>
-            <Button
-              LinkComponent={Link}
-              href="/sign-up"
-              variant="contained"
+          {!isLogin ? (
+            <Box display={{ xs: "none", md: "inline-block" }}>
+              <Button
+                LinkComponent={Link}
+                href="/login"
+                sx={{ my: 2, color: "#000" }}
+                disableRipple
+              >
+                Login
+              </Button>
+              <Button
+                LinkComponent={Link}
+                href="/sign-up"
+                variant="contained"
+                sx={{
+                  my: 2,
+                  color: "#fff",
+                  bgcolor: "#000",
+                  borderRadius: 6,
+                  pr: 1,
+                }}
+                disableRipple
+                endIcon={
+                  <ArrowOutwardRoundedIcon
+                    sx={{
+                      bgcolor: "primary.main",
+                      borderRadius: "100%",
+                      fontSize: 3,
+                      height: 30,
+                      width: 30,
+                    }}
+                  />
+                }
+              >
+                Sign Up
+              </Button>
+            </Box>
+          ) : (
+            <Stack
+              direction="row"
               sx={{
-                my: 2,
-                color: "#fff",
-                bgcolor: "#000",
-                borderRadius: 6,
-                pr: 1,
+                flexGrow: { xs: 1, md: 0 },
+                justifyContent: "flex-end",
+                alignItems: "center",
+                gap: 1,
               }}
-              disableRipple
-              endIcon={
-                <ArrowOutwardRoundedIcon
-                  sx={{
-                    bgcolor: "primary.main",
-                    borderRadius: "100%",
-                    fontSize: 3,
-                    height: 30,
-                    width: 30,
-                  }}
-                />
-              }
             >
-              Sign Up
-            </Button>
-          </Box>
-
-          <MobileClientNavbar />
+              <Avatar
+                src="/assets/profile/pic-7.jpg"
+                sx={{ width: [32, 36], height: [32, 36] }}
+              />
+            </Stack>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

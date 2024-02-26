@@ -73,7 +73,7 @@ const Nav = ({ title, route, toggleDrawer }) => {
   );
 };
 
-const MobileClientNavbar = () => {
+const MobileClientNavbar = ({ isLogin }) => {
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -82,7 +82,8 @@ const MobileClientNavbar = () => {
 
   return (
     <Box
-      flexGrow={1}
+      // flexGrow={1}
+      pr={1}
       textAlign="right"
       sx={{ display: { xs: "inline-block", md: "none", color: "#000" } }}
     >
@@ -132,26 +133,39 @@ const MobileClientNavbar = () => {
           </Box>
           <Divider />
 
-          <Stack mt={1} gap={1}>
+          {isLogin ? (
+            <Stack mt={1} gap={1}>
+              <Button
+                LinkComponent={Link}
+                href="/login"
+                fullWidth
+                variant="contained"
+                onClick={toggleDrawer(false)}
+              >
+                Login
+              </Button>
+              <Button
+                LinkComponent={Link}
+                href="/sign-up"
+                fullWidth
+                variant="outlined"
+                onClick={toggleDrawer(false)}
+              >
+                Sign Up
+              </Button>
+            </Stack>
+          ) : (
             <Button
+              sx={{ mt: 2 }}
               LinkComponent={Link}
-              href="/login"
+              href="/"
               fullWidth
               variant="contained"
               onClick={toggleDrawer(false)}
             >
-              Login
+              Log out
             </Button>
-            <Button
-              LinkComponent={Link}
-              href="/sign-up"
-              fullWidth
-              variant="outlined"
-              onClick={toggleDrawer(false)}
-            >
-              Sign Up
-            </Button>
-          </Stack>
+          )}
         </Box>
       </Drawer>
     </Box>

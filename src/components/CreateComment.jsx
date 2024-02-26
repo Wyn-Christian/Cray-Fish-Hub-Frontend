@@ -4,7 +4,11 @@ const CreateComment = () => {
   return (
     <Fade in>
       <Paper sx={{ pb: 1 }} elevation={0}>
-        <Stack direction="row" gap={2} alignItems="center">
+        <Stack
+          direction={["column", "row"]}
+          gap={2}
+          alignItems={["flex-end", "center"]}
+        >
           <Avatar
             alt="user"
             src="/assets/profile/pic-3.jpg"
