@@ -41,8 +41,8 @@ const ProfileHeader = ({ currentTab, handleChangeTab, tabs, user }) => {
           }}
         >
           <Avatar
-            alt="User Profile Picture"
-            src={user.profilepath}
+            alt={user.name}
+            src={user.name}
             sx={{
               mx: "auto",
               border: "2px solid #fff",
@@ -61,10 +61,9 @@ const ProfileHeader = ({ currentTab, handleChangeTab, tabs, user }) => {
               variant: "h5",
               fontWeight: 700,
             }}
-            secondary={user.username}
+            secondary={`@${user.username}`}
             secondaryTypographyProps={{
               color: "inherit",
-              mt: 0.5,
               sx: { opacity: 0.6 },
             }}
           />

@@ -68,10 +68,10 @@ const ResourcePaper = ({
   );
 };
 
-const ResourcesTab = ({ index, value }) => {
+const ResourcesTab = ({ index, value, user }) => {
   return (
     <TabPanel value={value} index={index}>
-      <TabHeader title="Kim Dahyun's Resources" />
+      <TabHeader title={`${user.name}'s Resources`} />
 
       <Masonry columns={{ xs: 1, sm: 2 }} spacing={2}>
         <ResourcePaper />

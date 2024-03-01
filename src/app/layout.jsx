@@ -3,6 +3,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import theme from "../utils/theme";
+import SnackbarProv from "@/components/SnackbarProv";
 
 export const metadata = {
   title: "Cray Fish Hub",
@@ -19,8 +20,10 @@ export default function RootLayout({ children }) {
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {children}
+            <SnackbarProv>
+              <CssBaseline />
+              {children}
+            </SnackbarProv>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

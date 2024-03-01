@@ -1,17 +1,18 @@
 "use client";
 import { useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
 
 import {
   Box,
   Button,
   Card,
   CardHeader,
+  CircularProgress,
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
+  LinearProgress,
   MenuItem,
-  OutlinedInput,
   Select,
   Stack,
   TextField,
@@ -19,11 +20,13 @@ import {
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 import UploadProfilePic from "@/components/UploadProfilePic";
+import { editUser } from "@/actions/admin/users";
+import SubmitBtn from "@/components/SubmitBtn";
 
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+const UserEditForm = ({ user }) => {
+  const [role, setRole] = useState(user.userType);
+  const [state, formAction] = useFormState(editUser, user);
 
-const UserEditForm = () => {
   const [profilePic, setProfilePic] = useState(null);
 
   const handleChange = (event) => {
@@ -31,7 +34,7 @@ const UserEditForm = () => {
   };
 
   return (
-    <form>
+    <form action={formAction}>
       <Grid container spacing={3}>
         <Grid xs={12} md={4}>
           <Card
@@ -71,17 +74,21 @@ const UserEditForm = () => {
             <CardHeader title="User Details" />
 
             <Grid container spacing={2}>
-              <Grid xs={12} md={6}>
-                <TextField label="First name" fullWidth value="Soo" />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField label="Last name" fullWidth value="Chaeyoung" />
+              <Grid xs={12}>
+                <TextField
+                  name="name"
+                  label="Full name"
+                  fullWidth
+                  defaultValue={user.name}
+                />
               </Grid>
               <Grid xs={12} md={5}>
                 <TextField
+                  name="username"
                   label="Username"
                   fullWidth
-                  value="chaeyo.0"
+                  // value="chaeyo.0"
+                  defaultValue={user.username}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">@</InputAdornment>
@@ -91,26 +98,33 @@ const UserEditForm = () => {
               </Grid>
               <Grid xs={12} md={7}>
                 <TextField
+                  name="email"
                   label="Email"
                   fullWidth
-                  value="chaeyoung@gmail.com"
+                  // value="chaeyoung@gmail.com"
+                  defaultValue={user.email}
                 />
               </Grid>
 
               <Grid xs={12} md={5}>
-                <FormControl fullWidth disabled>
+                <FormControl fullWidth>
                   <InputLabel>Role</InputLabel>
-                  <Select value={"admin"} label="Role" onChange={handleChange}>
-                    <MenuItem value="admin">Admin</MenuItem>
-                    <MenuItem value="registered">Registered User</MenuItem>
-                    <MenuItem value="unregistered">Unregistered User</MenuItem>
+                  <Select
+                    name="userType"
+                    value={role}
+                    label="Role"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="Admin">Admin</MenuItem>
+                    <MenuItem value="Registered">Registered User</MenuItem>
+                    <MenuItem value="Unregistered">Unregistered User</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
             </Grid>
 
             <Stack alignItems="flex-end" mt={3}>
-              <Button variant="contained">Save Changes</Button>
+              <SubmitBtn title="Save Changes" />
             </Stack>
           </Card>
         </Grid>

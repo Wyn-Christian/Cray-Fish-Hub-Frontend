@@ -3,13 +3,17 @@ import { Box } from "@mui/material";
 const ArticleStatus = ({ value }) => {
   let color, bgcolor;
   switch (value) {
-    case "draft":
+    case "In Draft":
       color = "#637381";
       bgcolor = "#919eab29";
       break;
-    case "published":
+    case "Published":
       color = "#006c9c";
       bgcolor = "#00b8d929";
+      break;
+    default:
+      color = "#000000";
+      bgcolor = "#6c6c6c29";
       break;
   }
 

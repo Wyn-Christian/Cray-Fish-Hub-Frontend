@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { enqueueSnackbar } from "notistack";
 
 import {
   Avatar,
@@ -14,8 +15,24 @@ import {
   Typography,
 } from "@mui/material";
 import { logout } from "@/actions/auth";
+import { getUserDetail } from "@/actions/users/account";
 
-const AvatarMenu = ({ user }) => {
+const links = [
+  {
+    title: "Home",
+    route: "/",
+  },
+  {
+    title: "Profile",
+    route: "/profile",
+  },
+  {
+    title: "Settings",
+    route: "/user",
+  },
+];
+
+const ProfileMenu = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -26,17 +43,6 @@ const AvatarMenu = ({ user }) => {
   };
 
   const open = Boolean(anchorEl);
-
-  const links = [
-    {
-      title: "Overview",
-      route: "/admin",
-    },
-    {
-      title: "Profile",
-      route: `/admin/users/profile/${user._id}`,
-    },
-  ];
 
   return (
     <Box>
@@ -49,8 +55,8 @@ const AvatarMenu = ({ user }) => {
         }}
       >
         <Avatar
-          alt={user.name}
-          src={user.name}
+          alt="avatar sample"
+          src="/assets/profile/pic-4.jpg"
           sx={{
             width: 36,
             height: 36,
@@ -66,7 +72,7 @@ const AvatarMenu = ({ user }) => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "center",
+          horizontal: "right",
         }}
         sx={{
           "& .MuiPopover-paper": {
@@ -138,8 +144,8 @@ const AvatarMenu = ({ user }) => {
             <Link
               href={link.route}
               style={{ textDecoration: "none", color: "inherit" }}
-              onClick={handleClose}
               key={link.title}
+              onClick={handleClose}
             >
               <MenuItem
                 sx={{
@@ -152,7 +158,6 @@ const AvatarMenu = ({ user }) => {
             </Link>
           ))}
         </Stack>
-
         <Divider sx={{ borderStyle: "dashed", color: "#919eab33" }} />
 
         <Link
@@ -178,4 +183,4 @@ const AvatarMenu = ({ user }) => {
   );
 };
 
-export default AvatarMenu;
+export default ProfileMenu;

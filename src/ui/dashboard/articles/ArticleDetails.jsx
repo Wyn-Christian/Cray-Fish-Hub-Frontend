@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import {
   Avatar,
   Box,
@@ -13,66 +15,66 @@ import {
 import ArticleComment from "@/components/ArticleComment";
 import DisplayContent from "@/components/DisplayContent";
 import articleSample from "@/constants/articleSample";
+import CreateArticleComment from "@/components/admin/CreateArticleComment";
 
-const HeaderSection = () => {
+const HeaderSection = ({ title, author, createdAt }) => {
   return (
     <>
-      <Typography variant="h2">[Article Title]</Typography>
+      <Typography variant="h2">{title}</Typography>
 
       <Stack gap={2} direction="row" alignItems="center">
         <Avatar
-          src="/assets/profile/pic-6.jpg"
+          src={author?.name}
+          alt={author?.name}
           sx={{ width: 50, height: 50 }}
         />
         <ListItemText
           primaryTypographyProps={{ variant: "h6" }}
-          primary="Article Name"
-          secondary="November 24, 2001"
+          primary={author?.name}
+          secondary={moment(createdAt).format("MMM DD, YYYY")}
         />
       </Stack>
     </>
   );
 };
 
-const ArticleDetails = () => {
+const ArticleDetails = ({
+  _id,
+  title,
+  content,
+  author,
+  createdAt,
+  comments,
+}) => {
   return (
     <Container maxWidth="sm">
       <Stack gap={3}>
-        <HeaderSection />
+        <HeaderSection title={title} author={author} createdAt={createdAt} />
 
         <Box>
-          <DisplayContent content={articleSample} />
+          <DisplayContent content={content} />
         </Box>
 
         <Divider />
 
         <Stack direction="row">
           <Typography variant="h5">Comments</Typography>
-          <Typography variant="subtitle2" color="#919eab">
-            (3)
-          </Typography>
+          {!!comments.length && (
+            <Typography variant="subtitle2" color="#919eab">
+              ({comments.length})
+            </Typography>
+          )}
         </Stack>
 
-        <Stack gap={2}>
-          <TextField
-            multiline
-            label="Write some of your comments..."
-            minRows={3}
-            maxRows={10}
-          />
-          <Box alignSelf="flex-end">
-            <Button variant="contained" size="small">
-              Post Comment
-            </Button>
-          </Box>
-        </Stack>
+        <CreateArticleComment articleId={_id} />
 
         <Divider />
 
         <Stack gap={2}>
-          <ArticleComment />
-          <ArticleComment />
-          <ArticleComment />
+          {!!comments.length &&
+            comments.map((comment) => (
+              <ArticleComment key={comment._id} {...comment} />
+            ))}
         </Stack>
       </Stack>
     </Container>

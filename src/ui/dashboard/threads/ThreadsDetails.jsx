@@ -1,3 +1,5 @@
+import { getCurrentUser } from "@/actions/admin/account";
+import { getAllCommentsByPost } from "@/actions/admin/forums";
 import CreateForumPost from "@/components/CreateForumPost";
 import ThreadPost from "@/components/ThreadPost";
 import {
@@ -8,16 +10,18 @@ import {
   Avatar,
   Box,
 } from "@mui/material";
+import moment from "moment";
 
-const ThreadDetail = () => {
+const ThreadDetail = ({ thread, author }) => {
   return (
     <Paper sx={{ pb: 2, px: [0, 2] }} elevation={0}>
       <Stack gap={2}>
-        <Typography variant="h3">Thread Title</Typography>
+        <Typography variant="h3">{thread?.title}</Typography>
 
         <Stack direction="row" gap={2} alignItems="center">
           <Avatar
-            src="/assets/profile/pic-5.jpg"
+            src={author?.name}
+            alt={author?.name}
             sx={{ width: 50, height: 50 }}
           />
           <Stack
@@ -25,7 +29,7 @@ const ThreadDetail = () => {
             alignItems={{ sm: "center" }}
             gap={[0, 1]}
           >
-            <Typography variant="subtitle1">Thread Author</Typography>
+            <Typography variant="subtitle1">{author?.name}</Typography>
 
             <Box
               width={4}
@@ -36,7 +40,7 @@ const ThreadDetail = () => {
             />
 
             <Typography variant="caption" color="#888">
-              May 19, 2024
+              {moment(thread?.createdAt).format("MMM DD, YYYY")}
             </Typography>
           </Stack>
         </Stack>
@@ -45,17 +49,26 @@ const ThreadDetail = () => {
   );
 };
 
-const ThreadsDetails = () => {
+const ThreadsDetails = async ({ thread, author, posts }) => {
+  const user = await getCurrentUser();
   return (
     <Container maxWidth="md" disableGutters>
-      <ThreadDetail />
+      <ThreadDetail thread={thread} author={author} />
 
-      <CreateForumPost />
+      <CreateForumPost threadId={thread?._id} author={author} user={user} />
 
       <Stack gap={1}>
-        <ThreadPost />
-        <ThreadPost />
-        <ThreadPost />
+        {posts.map(async (post) => {
+          let comments = await getAllCommentsByPost(post._id);
+          return (
+            <ThreadPost
+              key={post._id}
+              {...post}
+              user={user}
+              comments={comments}
+            />
+          );
+        })}
       </Stack>
     </Container>
   );

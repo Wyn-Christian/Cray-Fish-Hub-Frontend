@@ -26,18 +26,18 @@ export default [
             title: "list",
             route: "/admin/users/list",
           },
-          {
-            title: "profile",
-            route: "/admin/users/profile/123",
-          },
+          // {
+          //   title: "profile",
+          //   route: "/admin/users/profile/123",
+          // },
           {
             title: "create",
             route: "/admin/users/create",
           },
-          {
-            title: "edit",
-            route: "/admin/users/edit/123",
-          },
+          // {
+          //   title: "edit",
+          //   route: "/admin/users/edit/123",
+          // },
         ],
       },
       {
@@ -48,18 +48,18 @@ export default [
             title: "list",
             route: "/admin/articles/list",
           },
-          {
-            title: "details",
-            route: "/admin/articles/details/123",
-          },
+          // {
+          //   title: "details",
+          //   route: "/admin/articles/details/123",
+          // },
           {
             title: "create",
             route: "/admin/articles/create",
           },
-          {
-            title: "edit",
-            route: "/admin/articles/edit/123",
-          },
+          // {
+          //   title: "edit",
+          //   route: "/admin/articles/edit/123",
+          // },
         ],
       },
       {
@@ -88,10 +88,10 @@ export default [
             title: "list",
             route: "/admin/forums/list",
           },
-          {
-            title: "details",
-            route: "/admin/forums/details/123",
-          },
+          // {
+          //   title: "details",
+          //   route: "/admin/forums/details/123",
+          // },
           {
             title: "create",
             route: "/admin/forums/create",

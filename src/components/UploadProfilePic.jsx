@@ -54,7 +54,7 @@ const UploadProfilePic = ({ photo, setPhoto, defaultPhoto }) => {
           },
         }}
       >
-        <input {...getInputProps()} />
+        <input name="profile" {...getInputProps()} />
         <Box
           width="100%"
           height="100%"

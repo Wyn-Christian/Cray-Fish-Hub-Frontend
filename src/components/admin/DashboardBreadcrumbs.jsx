@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Box, Breadcrumbs, Button, Stack, Typography } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
-const DashboardBreadcrumbs = ({ title, links, btn }) => {
+const DashboardBreadcrumbs = ({ title, links, btn, name }) => {
   return (
     <Box mb={{ xs: 3, md: 5 }}>
       <Stack

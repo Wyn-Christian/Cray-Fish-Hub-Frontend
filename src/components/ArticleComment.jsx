@@ -1,17 +1,16 @@
 import { Avatar, Divider, Stack, Typography } from "@mui/material";
+import moment from "moment";
 
-const ArticleComment = () => (
+const ArticleComment = ({ author, content, createdAt }) => (
   <Stack direction="row" gap={1}>
-    <Avatar alt="User Profile" src="/assets/profile/pic-5.jpg" />
-    <Stack>
-      <Typography variant="subtitle2">[Comment Author]</Typography>
+    <Avatar alt={author?.name} src={author?.name} />
+    <Stack flexGrow={1}>
+      <Typography variant="subtitle2">{author?.name}</Typography>
       <Typography variant="caption" color="#919eab">
-        12 Feb 2024
+        {moment(createdAt).fromNow()}
       </Typography>
       <Typography variant="body2" my={1}>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-        sapiente harum libero perferendis corrupti saepe quas ratione provident
-        aspernatur quo?
+        {content}
       </Typography>
       <Divider />
     </Stack>

@@ -1,3 +1,4 @@
+import { htmlToMarkdown } from "@/utils/Parser";
 import { Box } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
@@ -14,7 +15,9 @@ const DisplayContent = ({ content }) => {
         },
       }}
     >
-      <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{content}</ReactMarkdown>
+      <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+        {htmlToMarkdown(content)}
+      </ReactMarkdown>
     </Box>
   );
 };

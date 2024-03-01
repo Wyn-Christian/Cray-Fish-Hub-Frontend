@@ -3,6 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import ThreadsList from "@/ui/dashboard/threads/ThreadsList";
 import DashboardBreadcrumbs from "@/components/admin/DashboardBreadcrumbs";
+import { getAllThreads } from "@/actions/admin/forums";
 
 const links = [
   {
@@ -24,7 +25,9 @@ const new_user_btn = {
   route: "/admin/forums/create",
 };
 
-const ForumListPage = () => {
+const ForumListPage = async () => {
+  const threads = await getAllThreads();
+
   return (
     <Container
       sx={{
@@ -35,7 +38,7 @@ const ForumListPage = () => {
     >
       <DashboardBreadcrumbs title="List" links={links} btn={new_user_btn} />
 
-      <ThreadsList />
+      <ThreadsList threads={threads.data} />
     </Container>
   );
 };

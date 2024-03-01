@@ -9,7 +9,7 @@ import navbarsize from "@/constants/navbarsize";
 import AvatarMenu from "./AvatarMenu";
 import DashboardMobileNavBar from "./DashboardMobileNavbar";
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ user }) => {
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => {
@@ -42,7 +42,7 @@ const DashboardHeader = () => {
             </IconButton>
           </Box>
 
-          <AvatarMenu />
+          <AvatarMenu user={user} />
         </Stack>
       </Toolbar>
 

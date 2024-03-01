@@ -7,8 +7,9 @@ import Grid from "@mui/material/Unstable_Grid2";
 
 import ProfileLink from "@/components/ProfileLink";
 import ArticleStatus from "@/components/admin/ArticleStatus";
+import moment from "moment";
 
-const ArticlePaper = ({ title, content, authorId }) => {
+const ArticlePaper = ({ _id, title, content, status, author, createdAt }) => {
   return (
     <Grid xs={12} md={6} lg={4}>
       <Stack
@@ -31,12 +32,12 @@ const ArticlePaper = ({ title, content, authorId }) => {
           justifyContent="space-between"
         >
           <Box width={30}>
-            <ArticleStatus value="draft" />
+            <ArticleStatus value={status} />
           </Box>
           <Stack gap={0.5}>
             <Box
               component={Link}
-              href="/admin/articles/details/123"
+              href={`/admin/articles/details/${_id}`}
               sx={{
                 textDecoration: "none",
                 color: "inherit",
@@ -45,8 +46,10 @@ const ArticlePaper = ({ title, content, authorId }) => {
             >
               <Typography variant="h5">{title}</Typography>
             </Box>
-
+            {/* 
             <Typography
+              component={ReactMarkdown}
+              rehypePlugins={[rehypeHighlight]}
               variant="body2"
               color="#637381"
               fontWeight={400}
@@ -54,19 +57,20 @@ const ArticlePaper = ({ title, content, authorId }) => {
                 display: "-webkit-box",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                WebkitLineClamp: 3, // Number of lines to show
+                WebkitLineClamp: 3,
                 WebkitBoxOrient: "vertical",
               }}
             >
-              {content}
-            </Typography>
+                {htmlToMarkdown(content)}
+    
+            </Typography> */}
           </Stack>
 
           <ProfileLink
-            href="/admin/users/profile/123"
-            src="/assets/profile/pic-1.jpg"
-            name="Article Author"
-            date="Feb 23, 2024"
+            href={`/admin/users/profile/${author?._id}`}
+            src={author?.name}
+            name={author?.name}
+            date={moment().fromNow(createdAt)}
           />
         </Stack>
       </Stack>
@@ -74,7 +78,7 @@ const ArticlePaper = ({ title, content, authorId }) => {
   );
 };
 
-const ArticleList = () => {
+const ArticleList = ({ articles }) => {
   const [statusTab, setStatusTab] = useState("all");
   const handleStatusTabChange = (event, newValue) => {
     setStatusTab(newValue);
@@ -96,23 +100,19 @@ const ArticleList = () => {
         }}
       >
         <Tab label="All" value="all" />
-        <Tab label="Draft" value="draft" />
-        <Tab label="Published" value="published" />
+        {/* <Tab label="Not Started" value="Not Started" /> */}
+        <Tab label="In Draft" value="In Draft" />
+        <Tab label="Published" value="Published" />
       </Tabs>
 
       <Grid container spacing={2}>
-        <ArticlePaper
-          title="sample 1"
-          content="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores repellendus non accusantium impedit similique, nisi voluptas adipisci, iste iusto cumque quaerat doloremque ipsum vero ea, dolorum temporibus illo sed commodi."
-        />
-        <ArticlePaper
-          title="sample 1"
-          content="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores repellendus non accusantium impedit similique, "
-        />
-        <ArticlePaper
-          title="sample 1"
-          content="Lorem ipsum dolor, sit amet consectetur adipisicing elit."
-        />
+        {articles
+          .filter((a) => {
+            return statusTab !== "all" ? a.status === statusTab : true;
+          })
+          .map((article) => (
+            <ArticlePaper key={article._id} {...article} />
+          ))}
       </Grid>
     </Box>
   );

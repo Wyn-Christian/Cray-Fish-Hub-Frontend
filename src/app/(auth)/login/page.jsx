@@ -1,4 +1,4 @@
-import LoginAuth from "@/components/LoginAuth";
+import LoginAuthForm from "@/components/LoginAuthForm";
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Image from "next/image";
@@ -17,7 +17,7 @@ const LoginPage = () => {
     >
       <Grid container>
         <Grid xs={12} md={6}>
-          <LoginAuth />
+          <LoginAuthForm />
         </Grid>
 
         <Grid xs={12} md={6} sx={{ display: { xs: "none", md: "flex" } }}>

@@ -17,7 +17,7 @@ const links = [
   },
 ];
 
-const ForumEditPage = () => {
+const ForumEditPage = async ({ params }) => {
   return (
     <Container
       sx={{

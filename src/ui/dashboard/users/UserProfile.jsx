@@ -29,7 +29,7 @@ const tabs = [
   },
 ];
 
-const UserProfile = () => {
+const UserProfile = ({ user }) => {
   const [currentTab, setCurrentTab] = useState(1);
   const handleChangeTab = (event, newValue) => {
     setCurrentTab(newValue);
@@ -41,15 +41,15 @@ const UserProfile = () => {
         currentTab={currentTab}
         handleChangeTab={handleChangeTab}
         tabs={tabs}
-        user={sample_user}
+        user={user}
       />
 
       <Grid container spacing={3}>
-        <AboutProfile {...sample_user} />
+        <AboutProfile {...user} />
 
         <Grid xs={12} md={8}>
-          <ResourcesTab value={currentTab} index={1} />
-          <ThreadsTab value={currentTab} index={2} />
+          <ResourcesTab value={currentTab} index={1} user={user} />
+          <ThreadsTab value={currentTab} index={2} user={user} />
         </Grid>
       </Grid>
     </>

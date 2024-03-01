@@ -9,7 +9,7 @@ const ThreadPaper = ({ href, title, date_created }) => {
   return (
     <Stack
       component={Link}
-      href="/forums/thread/123"
+      href="/admin/forums/details/123"
       sx={{
         borderRadius: 4,
         overflow: "hidden",
@@ -25,20 +25,23 @@ const ThreadPaper = ({ href, title, date_created }) => {
         },
       }}
     >
-      <Stack gap={1} p={3} bgcolor="#fee9d1">
+      <Stack p={3} bgcolor="#fee9d1">
         <Typography variant="h6">Thread Sample Title</Typography>
         <Typography variant="subtitle2" fontWeight={600} color="#585858">
           Category
+        </Typography>
+        <Typography variant="caption" fontWeight={500} color="#585858">
+          Feb 20, 2024
         </Typography>
       </Stack>
     </Stack>
   );
 };
 
-const ThreadsTab = ({ index, value }) => {
+const ThreadsTab = ({ index, value, user }) => {
   return (
     <TabPanel value={value} index={index}>
-      <TabHeader title="Kim Dahyun's Threads" />
+      <TabHeader title={`${user.name}'s Threads`} />
 
       <Masonry columns={{ xs: 1, sm: 2 }}>
         <ThreadPaper />

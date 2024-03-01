@@ -1,7 +1,34 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+"use client";
 import Link from "next/link";
+import { useFormState } from "react-dom";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { login } from "@/actions/auth";
+import { useEffect } from "react";
+import { enqueueSnackbar } from "notistack";
+import { redirect } from "next/navigation";
 
-const LoginAuth = () => {
+const initialState = {
+  email: "",
+  password: "",
+};
+
+const LoginAuthForm = () => {
+  const [state, formAction] = useFormState(login, initialState);
+
+  useEffect(() => {
+    if (state?.status == "fail") {
+      enqueueSnackbar("Wrong email or password...", { variant: "error" });
+    }
+    if (state?.status == "success") {
+      enqueueSnackbar("Login Successfully!", { variant: "success" });
+      if (state?.data[0].userType == "Admin") {
+        redirect("/admin");
+      } else {
+        redirect("/");
+      }
+    }
+  }, [state]);
+
   return (
     <Box>
       <Box mb={4}>
@@ -19,10 +46,16 @@ const LoginAuth = () => {
         </Typography>
       </Box>
 
-      <Box component="form">
+      <Box component="form" action={formAction}>
         <Stack gap={2}>
-          <TextField label="Email" required helperText="Enter your email" />
           <TextField
+            name="email"
+            label="Email"
+            required
+            helperText="Enter your email"
+          />
+          <TextField
+            name="password"
             label="Password"
             type="password"
             required
@@ -49,7 +82,7 @@ const LoginAuth = () => {
             </Stack>
 
             <Box alignSelf="flex-end" width={{ xs: "100%", sm: "unset" }}>
-              <Button variant="contained" fullWidth>
+              <Button variant="contained" fullWidth type="submit">
                 Login
               </Button>
             </Box>
@@ -60,4 +93,4 @@ const LoginAuth = () => {
   );
 };
 
-export default LoginAuth;
+export default LoginAuthForm;

@@ -15,6 +15,7 @@ import Link from "next/link";
 
 import ArrowOutwardRoundedIcon from "@mui/icons-material/ArrowOutwardRounded";
 import MobileClientNavbar from "./MobileClientNavbar";
+import ProfileMenu from "./ProfileMenu";
 
 const client_pages = [
   {
@@ -33,18 +34,14 @@ const client_pages = [
     title: "Forums",
     route: "/forums",
   },
-  {
-    title: "Analysis",
-    route: "/analysis",
-  },
-  {
-    title: "User",
-    route: "/user",
-  },
-  {
-    title: "Profile",
-    route: "/profile/123",
-  },
+  // {
+  //   title: "Analysis",
+  //   route: "/analysis",
+  // },
+  // {
+  //   title: "Profile",
+  //   route: "/profile/123",
+  // },
 ];
 
 const auth_pages = [
@@ -58,9 +55,7 @@ const auth_pages = [
   },
 ];
 
-const ClientNavBar = () => {
-  const isLogin = false;
-
+const ClientNavBar = ({ isLogin, user }) => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -165,10 +160,7 @@ const ClientNavBar = () => {
                 gap: 1,
               }}
             >
-              <Avatar
-                src="/assets/profile/pic-7.jpg"
-                sx={{ width: [32, 36], height: [32, 36] }}
-              />
+              <ProfileMenu user={user} />
             </Stack>
           )}
         </Toolbar>

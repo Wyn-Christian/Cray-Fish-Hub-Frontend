@@ -5,22 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  Stack,
-  Typography,
-} from "@mui/material";
-
-import Grid from "@mui/material/Unstable_Grid2";
+import { Box, Button, Divider, Drawer, Stack, Typography } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { logout } from "@/actions/auth";
 
 const client_pages = [
   {
@@ -133,7 +121,7 @@ const MobileClientNavbar = ({ isLogin }) => {
           </Box>
           <Divider />
 
-          {isLogin ? (
+          {!isLogin ? (
             <Stack mt={1} gap={1}>
               <Button
                 LinkComponent={Link}
@@ -161,7 +149,10 @@ const MobileClientNavbar = ({ isLogin }) => {
               href="/"
               fullWidth
               variant="contained"
-              onClick={toggleDrawer(false)}
+              onClick={() => {
+                toggleDrawer(false)();
+                logout();
+              }}
             >
               Log out
             </Button>

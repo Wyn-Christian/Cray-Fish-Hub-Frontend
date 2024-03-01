@@ -54,6 +54,7 @@ const DataGridList = ({ rows, columns }) => {
       }}
     >
       <DataGrid
+        getRowId={(row) => row._id}
         sx={{
           borderWidth: 0,
           "& .MuiDataGrid-cell": {

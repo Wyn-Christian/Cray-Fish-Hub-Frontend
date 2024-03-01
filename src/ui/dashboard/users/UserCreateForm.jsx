@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useFormState } from "react-dom";
 
 import {
   Box,
@@ -23,7 +24,20 @@ import UploadProfilePic from "@/components/UploadProfilePic";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
+import { createUser } from "@/actions/admin/users";
+import SubmitBtn from "@/components/SubmitBtn";
+
+const initialState = {
+  name: "",
+  email: "",
+  username: "",
+  password: "",
+  userType: "",
+};
+
 const UserCreateForm = () => {
+  const [state, formAction] = useFormState(createUser, initialState);
+
   const [role, setRole] = useState("");
   const [profilePic, setProfilePic] = useState(null);
 
@@ -40,7 +54,7 @@ const UserCreateForm = () => {
   };
 
   return (
-    <form>
+    <form action={formAction}>
       <Grid container spacing={3}>
         <Grid xs={12} md={4}>
           <Card
@@ -76,16 +90,15 @@ const UserCreateForm = () => {
             <CardHeader title="User Details" />
 
             <Grid container spacing={2}>
-              <Grid xs={12} md={6}>
-                <TextField label="First name" fullWidth />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField label="Last name" fullWidth />
+              <Grid xs={12}>
+                <TextField name="name" label="Full Name" fullWidth required />
               </Grid>
               <Grid xs={12} md={5}>
                 <TextField
+                  name="username"
                   label="Username"
                   fullWidth
+                  required
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">@</InputAdornment>
@@ -94,12 +107,13 @@ const UserCreateForm = () => {
                 />
               </Grid>
               <Grid xs={12} md={7}>
-                <TextField label="Email" fullWidth />
+                <TextField name="email" label="Email" fullWidth required />
               </Grid>
               <Grid xs={12} md={6}>
-                <FormControl variant="outlined" fullWidth>
+                <FormControl variant="outlined" fullWidth required>
                   <InputLabel>Password</InputLabel>
                   <OutlinedInput
+                    name="password"
                     label="Password"
                     type={viewPassword ? "text" : "password"}
                     endAdornment={
@@ -121,19 +135,24 @@ const UserCreateForm = () => {
                 </FormControl>
               </Grid>
               <Grid xs={12} md={6}>
-                <FormControl fullWidth>
+                <FormControl fullWidth required>
                   <InputLabel>Role</InputLabel>
-                  <Select value={role} label="Role" onChange={handleChange}>
-                    <MenuItem value="admin">Admin</MenuItem>
-                    <MenuItem value="registered">Registered User</MenuItem>
-                    <MenuItem value="unregistered">Unregistered User</MenuItem>
+                  <Select
+                    name="userType"
+                    value={role}
+                    label="Role"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="Admin">Admin</MenuItem>
+                    <MenuItem value="Registered">Registered User</MenuItem>
+                    <MenuItem value="Unregistered">Unregistered User</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
             </Grid>
 
             <Stack alignItems="flex-end" mt={3}>
-              <Button variant="contained">Create User</Button>
+              <SubmitBtn title="Create User" />
             </Stack>
           </Card>
         </Grid>

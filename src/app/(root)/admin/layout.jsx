@@ -1,14 +1,19 @@
+import { cookies } from "next/headers";
 import { Box } from "@mui/material";
 
 import navbarsize from "@/constants/navbarsize";
 
 import DashboardHeader from "@/components/admin/DashboardHeader";
 import DashboardNavBar from "@/components/admin/DashboardNavBar";
+import { getAdminDetail } from "@/actions/admin/account";
 
-const AdminDashboardLayout = ({ children }) => {
+const AdminDashboardLayout = async ({ children }) => {
+  let userId = cookies().get("currentUser").value;
+  let user = await getAdminDetail(userId);
+
   return (
     <Box>
-      <DashboardHeader />
+      <DashboardHeader user={user} />
       <Box
         display="flex"
         minHeight="100%"

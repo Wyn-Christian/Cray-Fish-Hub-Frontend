@@ -1,5 +1,6 @@
 "use client";
 
+import moment from "moment";
 import { useState } from "react";
 
 import {
@@ -47,7 +48,7 @@ const ProfileLink = ({ href, src, name, date }) => {
   );
 };
 
-const ThreadPaper = ({ author, title, date_created }) => {
+const ThreadPaper = ({ _id, author, title, category, createdAt }) => {
   return (
     <Stack
       sx={{
@@ -62,7 +63,7 @@ const ThreadPaper = ({ author, title, date_created }) => {
       <Stack gap={1} p={3} bgcolor="#fee9d1">
         <Stack
           component={Link}
-          href="/admin/forums/details/123"
+          href={`/admin/forums/details/${_id}`}
           sx={{
             textDecoration: "none",
             color: "inherit",
@@ -73,24 +74,24 @@ const ThreadPaper = ({ author, title, date_created }) => {
             },
           }}
         >
-          <Typography variant="h6">Thread Sample Title</Typography>
+          <Typography variant="h6">{title}</Typography>
           <Typography variant="subtitle2" fontWeight={600} color="#585858">
-            Category
+            {category}
           </Typography>
         </Stack>
 
         <ProfileLink
-          href="/admin/users/profile/123"
-          src="/assets/profile/pic-1.jpg"
-          name="Thread Author"
-          date="Feb 12, 2024"
+          href={`/admin/users/profile/${author?._id}`}
+          src={author?.name}
+          name={author?.name}
+          date={moment(createdAt).format("MMM DD, YYYY")}
         />
       </Stack>
     </Stack>
   );
 };
 
-const ThreadsList = () => {
+const ThreadsList = ({ threads }) => {
   const [category, setCategory] = useState("all");
   const handleCategoryChange = (event, newValue) => {
     setCategory(newValue);
@@ -112,15 +113,19 @@ const ThreadsList = () => {
         }}
       >
         <Tab label="All" value="all" />
-        <Tab label="General" value="general" />
-        <Tab label="Q&A" value="q&a" />
-        <Tab label="Case Study" value="case study" />
+        <Tab label="General" value="General" />
+        <Tab label="Q&A" value="Q&A" />
+        <Tab label="Case Study" value="Case Study" />
       </Tabs>
 
       <Masonry columns={{ xs: 1, sm: 2, md: 3 }}>
-        <ThreadPaper />
-        <ThreadPaper />
-        <ThreadPaper />
+        {threads
+          .filter((a) => {
+            return category !== "all" ? a.category === category : true;
+          })
+          .map((thread) => (
+            <ThreadPaper key={thread._id} {...thread} />
+          ))}
       </Masonry>
     </Box>
   );

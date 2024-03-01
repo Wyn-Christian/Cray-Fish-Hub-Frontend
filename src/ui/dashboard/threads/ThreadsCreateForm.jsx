@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
+import { useFormState } from "react-dom";
 
 import {
-  Box,
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -14,24 +13,33 @@ import {
 import Grid from "@mui/material/Unstable_Grid2";
 
 import Section from "@/components/Section";
+import { createThread } from "@/actions/admin/forums";
+import SubmitBtn from "@/components/SubmitBtn";
 
 const ThreadsCreateForm = () => {
-  const [category, setCategory] = useState("");
+  const [state, formAction] = useFormState(createThread, {});
+
+  const [category, setCategory] = useState("General");
 
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
   return (
-    <form>
+    <form action={formAction}>
       <Grid container>
         <Section title="Details" subtitle="Title, Category...">
           <Stack gap={1}>
             <TextField name="title" label="Title" fullWidth />
             <FormControl fullWidth>
               <InputLabel>Category</InputLabel>
-              <Select value={category} label="Category" onChange={handleChange}>
-                <MenuItem value={"general"}>General</MenuItem>
-                <MenuItem value={"q&a"}>Q&A</MenuItem>
+              <Select
+                name="category"
+                value={category}
+                label="Category"
+                onChange={handleChange}
+              >
+                <MenuItem value={"General"}>General</MenuItem>
+                <MenuItem value={"Q&A"}>Q&A</MenuItem>
                 <MenuItem value={"Case Study"}>Case Study</MenuItem>
               </Select>
             </FormControl>
@@ -40,7 +48,7 @@ const ThreadsCreateForm = () => {
         <Grid md={4} />
         <Grid xs={12} md={8}>
           <Stack mt={1} alignItems="flex-end">
-            <Button variant="contained">Create New Thread</Button>
+            <SubmitBtn title="Create New Thread" />
           </Stack>
         </Grid>
       </Grid>

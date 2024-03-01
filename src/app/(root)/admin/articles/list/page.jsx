@@ -3,6 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import DashboardBreadcrumbs from "@/components/admin/DashboardBreadcrumbs";
 import ArticleList from "@/ui/dashboard/articles/ArticleList";
+import { getAllArticles } from "@/actions/admin/articles";
 
 const links = [
   {
@@ -24,12 +25,14 @@ const new_user_btn = {
   route: "/admin/articles/create",
 };
 
-const ArticleListPage = () => {
+const ArticleListPage = async () => {
+  const result = await getAllArticles();
+
   return (
     <Container sx={{ px: [0, 2] }}>
       <DashboardBreadcrumbs title="List" links={links} btn={new_user_btn} />
 
-      <ArticleList />
+      <ArticleList articles={result.data} />
     </Container>
   );
 };

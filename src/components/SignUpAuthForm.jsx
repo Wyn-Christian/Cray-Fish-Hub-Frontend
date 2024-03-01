@@ -1,7 +1,7 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import Link from "next/link";
 
-const SignUpAuth = () => {
+const SignUpAuthForm = () => {
   return (
     <Box>
       <Box mb={4}>
@@ -98,4 +98,4 @@ const SignUpAuth = () => {
   );
 };
 
-export default SignUpAuth;
+export default SignUpAuthForm;

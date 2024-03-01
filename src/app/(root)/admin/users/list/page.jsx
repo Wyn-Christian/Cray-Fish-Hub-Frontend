@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import DashboardBreadcrumbs from "@/components/admin/DashboardBreadcrumbs";
 import UserList from "@/ui/dashboard/users/UserList";
+import { getAllUsers } from "@/actions/admin/users";
 
 const links = [
   {
@@ -25,7 +26,9 @@ const new_user_btn = {
   route: "/admin/users/create",
 };
 
-const UserListPage = () => {
+const UserListPage = async () => {
+  const result = await getAllUsers();
+
   return (
     <Container
       sx={{
@@ -36,7 +39,7 @@ const UserListPage = () => {
     >
       <DashboardBreadcrumbs title="List" links={links} btn={new_user_btn} />
 
-      <UserList />
+      <UserList data={result.data} />
     </Container>
   );
 };

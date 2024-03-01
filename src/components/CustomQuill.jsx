@@ -6,8 +6,6 @@ import { Box } from "@mui/material";
 // import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-import { htmlToMarkdown, markdownToHtml } from "@/utils/Parser";
-
 const modules = {
   toolbar: {
     container: [
@@ -16,8 +14,8 @@ const modules = {
       [
         { list: "ordered" },
         { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
+        // { indent: "-1" },
+        // { indent: "+1" },
       ],
       ["link"],
       ["clean"],
@@ -31,10 +29,10 @@ const CustomQuill = ({ content, setContent }) => {
     []
   );
 
-  const [value, setValue] = useState(markdownToHtml(content));
+  const [value, setValue] = useState(content);
 
   const handleChange = (new_content) => {
-    setContent(htmlToMarkdown(new_content));
+    setContent(new_content);
     setValue(new_content);
   };
 

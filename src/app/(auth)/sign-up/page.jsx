@@ -1,4 +1,4 @@
-import SignUpAuth from "@/components/SignUpAuth";
+import SignUpAuthForm from "@/components/SignUpAuthForm";
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Image from "next/image";
@@ -27,7 +27,7 @@ const SignUpPage = () => {
         </Grid>
 
         <Grid xs={12} md={6}>
-          <SignUpAuth />
+          <SignUpAuthForm />
         </Grid>
       </Grid>
     </Box>

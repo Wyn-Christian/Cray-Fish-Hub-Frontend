@@ -17,7 +17,7 @@ const links = [
   },
 ];
 
-const ForumCreatePage = () => {
+const ForumCreatePage = async () => {
   return (
     <Container>
       <DashboardBreadcrumbs title="Create a new thread" links={links} />
