@@ -70,10 +70,10 @@ export default [
             title: "list",
             route: "/admin/resources/list",
           },
-          {
-            title: "details",
-            route: "/admin/resources/details/123",
-          },
+          // {
+          //   title: "details",
+          //   route: "/admin/resources/details/123",
+          // },
           {
             title: "create",
             route: "/admin/resources/create",
