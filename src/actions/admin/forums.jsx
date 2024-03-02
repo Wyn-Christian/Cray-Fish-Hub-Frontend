@@ -50,17 +50,6 @@ export const createThread = async (currentState, formData) => {
   }
 };
 
-export const getThreadPosts = async (threadId) => {
-  const response = await fetch(
-    `${process.env.SERVER_URL}/forumthreads?page=${page}&limit=${limit}`,
-    { next: { tags: ["threads"] } }
-  );
-
-  const result = await response.json();
-
-  return result;
-};
-
 export const getAllPostsByThreads = async (id) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/forumposts/thread/${id}`,
@@ -92,23 +81,10 @@ export const createPost = async (currentState, formData) => {
   }
 };
 
-export const getAllCommentsByPost = async (id) => {
-  const response = await fetch(
-    `${process.env.SERVER_URL}/comments/post/${id}`,
-    { next: { tags: ["threads", "posts", "comments"] } }
-  );
-
-  const result = await response.json();
-
-  return result.data;
-};
-
 export const createPostComment = async (currentState, formData) => {
   const new_post_comment = Object.fromEntries(formData);
 
   new_post_comment.author = cookies().get("currentUser").value;
-
-  // console.log(new_post_comment);
 
   const response = await fetch(`${process.env.SERVER_URL}/comments`, {
     method: "POST",
