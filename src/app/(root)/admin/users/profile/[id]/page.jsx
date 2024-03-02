@@ -5,9 +5,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import UserProfile from "@/ui/dashboard/users/UserProfile";
 import DashboardBreadcrumbs from "@/components/admin/DashboardBreadcrumbs";
 import { getUserDetail } from "@/actions/admin/users";
+import { getAllThreadsByUser } from "@/actions/users/forums";
 
 const UserProfilePage = async ({ params }) => {
   let user = await getUserDetail(params.id);
+  const threads = await getAllThreadsByUser(params.id);
+
+  console.log({ threads });
+
   const links = [
     {
       title: "Dashboard",
@@ -31,7 +36,7 @@ const UserProfilePage = async ({ params }) => {
     <Container>
       <DashboardBreadcrumbs title="Profile" links={links} btn={edit_user_btn} />
 
-      <UserProfile user={user} />
+      <UserProfile user={user} threads={threads.data} />
     </Container>
   );
 };

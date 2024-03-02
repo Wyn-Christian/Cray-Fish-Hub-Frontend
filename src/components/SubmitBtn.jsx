@@ -1,3 +1,4 @@
+"use client";
 import { Box, Button, CircularProgress } from "@mui/material";
 import { useFormStatus } from "react-dom";
 

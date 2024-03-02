@@ -1,4 +1,4 @@
-import { getUserDetail } from "@/actions/users/account";
+import { getProfileDetail } from "@/actions/users/account";
 import ClientNavBar from "@/components/ClientNavbar";
 import { Box } from "@mui/material";
 import { cookies } from "next/headers";
@@ -8,7 +8,7 @@ const ClientLayout = async ({ children }) => {
   let user;
 
   if (isLogin) {
-    user = await getUserDetail(isLogin);
+    user = await getProfileDetail(isLogin);
   }
 
   return (

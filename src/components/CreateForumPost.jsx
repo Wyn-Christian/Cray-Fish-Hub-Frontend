@@ -35,9 +35,7 @@ const CreateForumPost = ({ threadId, user }) => {
             fullWidth
             minRows={3}
           />
-          {/* <Button variant="contained" size="small" sx={{ minWidth: 100 }}>
-              Post
-            </Button> */}
+
           <SubmitBtn title="Post" disabled={!content} />
         </Stack>
       </Paper>

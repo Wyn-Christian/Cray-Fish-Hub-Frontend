@@ -1,4 +1,5 @@
-"use client";
+import moment from "moment";
+
 import {
   Avatar,
   Box,
@@ -8,8 +9,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import moment from "moment";
-import React from "react";
 
 const PostComment = ({ content, createdAt, author }) => {
   return (

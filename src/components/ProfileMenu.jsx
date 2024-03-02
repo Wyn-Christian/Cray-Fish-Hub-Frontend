@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { enqueueSnackbar } from "notistack";
 
 import {
   Avatar,
@@ -15,13 +14,12 @@ import {
   Typography,
 } from "@mui/material";
 import { logout } from "@/actions/auth";
-import { getUserDetail } from "@/actions/users/account";
 
 const links = [
-  {
-    title: "Home",
-    route: "/",
-  },
+  // {
+  //   title: "Home",
+  //   route: "/",
+  // },
   {
     title: "Profile",
     route: "/profile",
@@ -55,8 +53,8 @@ const ProfileMenu = ({ user }) => {
         }}
       >
         <Avatar
-          alt="avatar sample"
-          src="/assets/profile/pic-4.jpg"
+          alt={user?.name}
+          src={user?.name}
           sx={{
             width: 36,
             height: 36,
@@ -142,9 +140,9 @@ const ProfileMenu = ({ user }) => {
         <Stack p={1}>
           {links.map((link) => (
             <Link
+              key={link.title}
               href={link.route}
               style={{ textDecoration: "none", color: "inherit" }}
-              key={link.title}
               onClick={handleClose}
             >
               <MenuItem

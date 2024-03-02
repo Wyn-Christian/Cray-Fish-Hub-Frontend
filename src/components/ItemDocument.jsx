@@ -34,7 +34,7 @@ const ItemDocument = ({ removeFile, downloadFile, file }) => {
       </Box>
       <ListItemText
         sx={{ flex: "1 1 auto" }}
-        primary={file.path}
+        primary={file.name}
         primaryTypographyProps={{
           fontWeight: 600,
           overflow: "hidden",
@@ -48,7 +48,12 @@ const ItemDocument = ({ removeFile, downloadFile, file }) => {
           <ClearIcon />
         </IconButton>
       ) : (
-        <IconButton size="small" onClick={() => {}}>
+        <IconButton
+          size="small"
+          onClick={() => {
+            window.open(file.path, "_blank", "noopener,noreferrer");
+          }}
+        >
           <FileDownloadIcon />
         </IconButton>
       )}

@@ -17,6 +17,7 @@ import PostComment from "./PostComment";
 
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import Link from "next/link";
 
 const ThreadPost = ({ _id, content, author, createdAt, user, comments }) => {
   const [openReply, setOpenReply] = useState(false);
@@ -26,11 +27,17 @@ const ThreadPost = ({ _id, content, author, createdAt, user, comments }) => {
     <Paper sx={{ px: [0, 2], pt: 1, height: "100%" }} elevation={0}>
       <Stack gap={1} direction="row">
         <Stack alignItems="center" gap={0.5}>
-          <Avatar
-            alt={author?.name}
-            src={author?.name}
-            sx={{ width: 50, height: 50 }}
-          />
+          <Box
+            component={Link}
+            href={`/profile/${author._id}`}
+            sx={{ textDecoration: "none" }}
+          >
+            <Avatar
+              alt={author?.name}
+              src={author?.name}
+              sx={{ width: 50, height: 50 }}
+            />
+          </Box>
           <Box height="100%">
             <Divider orientation="vertical" />
           </Box>
@@ -39,7 +46,17 @@ const ThreadPost = ({ _id, content, author, createdAt, user, comments }) => {
         <Stack flexGrow={1}>
           <Stack>
             <Stack direction="row" alignItems="center" gap={1}>
-              <Typography variant="subtitle2">{author?.name}</Typography>
+              <Box
+                component={Link}
+                href={`/profile/${author._id}`}
+                sx={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                <Typography variant="subtitle2">{author?.name}</Typography>
+              </Box>
 
               <Box width={4} height={4} borderRadius="50%" bgcolor="#333" />
 
@@ -51,10 +68,14 @@ const ThreadPost = ({ _id, content, author, createdAt, user, comments }) => {
 
           <Typography variant="body1">{content}</Typography>
           <Box>
-            <Button disableRipple onClick={() => setOpenReply(!openReply)}>
+            <Button
+              disableRipple
+              onClick={() => setOpenReply(!openReply)}
+              disabled={!user}
+            >
               Reply
             </Button>
-            {!!comments.length && (
+            {!!comments?.length && (
               <Button
                 disableRipple
                 endIcon={

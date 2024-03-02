@@ -59,6 +59,10 @@ const CustomQuill = ({ content, setContent }) => {
           maxHeight: 640,
           bgcolor: "#919eab14",
         },
+        "& .ql-picker-options": {
+          height: 156,
+          overflowY: "scroll",
+        },
       }}
       theme="snow"
       value={value}

@@ -8,9 +8,12 @@ import { Box, Stack, Typography } from "@mui/material";
 import ItemDocument from "./ItemDocument";
 
 const UploadDocument = ({ file, setFile }) => {
-  const onDrop = useCallback((acceptedFiles) => {
-    setFile(acceptedFiles);
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      setFile(acceptedFiles[0]);
+    },
+    [setFile]
+  );
 
   const removeFile = () => {
     setFile(null);
@@ -33,6 +36,8 @@ const UploadDocument = ({ file, setFile }) => {
 
   return (
     <Box>
+      <input name="file" {...getInputProps()} />
+
       {!file ? (
         <Box
           {...getRootProps()}
@@ -52,8 +57,6 @@ const UploadDocument = ({ file, setFile }) => {
             },
           }}
         >
-          <input {...getInputProps()} />
-
           <Stack
             gap={1}
             sx={{
@@ -80,7 +83,7 @@ const UploadDocument = ({ file, setFile }) => {
           </Stack>
         </Box>
       ) : (
-        <ItemDocument removeFile={removeFile} file={file[0]} />
+        <ItemDocument removeFile={removeFile} file={file} />
       )}
     </Box>
   );

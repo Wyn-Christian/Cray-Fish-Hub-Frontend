@@ -1,135 +1,63 @@
 "use client";
 import { useState } from "react";
 
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardHeader,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
-  Stack,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import TabPanel from "./TabPanel";
 import TabHeader from "./TabHeader";
 import Link from "next/link";
+import CreateThreadForm from "../user/CreateThreadForm";
+import { Masonry } from "@mui/lab";
+import moment from "moment";
 
-const CreateThread = () => {
-  const [category, setCategory] = useState("");
-
-  const handleChange = (event) => {
-    setCategory(event.target.value);
-  };
+const ThreadPaper = ({ _id, author, title, category, createdAt }) => {
   return (
-    <Grid container spacing={3}>
-      <Grid md={4} sx={{ display: { xs: "none", md: "block" } }}>
-        <Typography variant="h6" mb={0.5}>
-          Create Thread
-        </Typography>
-        <Typography variant="body2" color="#919eab">
-          Upload your file here and wait for the approval...
-        </Typography>
-      </Grid>
-
-      <Grid xs={12} md={8}>
-        <Card
-          elevation={0}
+    <Stack
+      sx={{
+        borderRadius: 4,
+        overflow: "hidden",
+        position: "relative",
+        "&:hover": {
+          boxShadow: "#919eab33 0px 0px 2px 0px, #919eab1f 0px 12px 24px -4px",
+        },
+      }}
+    >
+      <Stack gap={1} p={3} bgcolor="#fee9d1">
+        <Box
           sx={{
-            overflow: "hidden",
-            position: "relative",
-            boxShadow:
-              "#919eab33 0px 0px 2px 0px, #919eab1f 0px 12px 24px -4px",
-            zIndex: 0,
-            borderRadius: 4,
-            p: 3,
+            lineHeight: 1.5,
+            fontWeight: 400,
+            color: "#919eab",
+            fontSize: "0.75rem",
           }}
         >
-          <CardHeader
-            title={<Typography variant="h6">Create New Thread</Typography>}
-            sx={{ display: { xs: "flex", md: "none" }, pt: 0, pl: 0 }}
-          />
+          {moment(createdAt).format("MMM DD, YYYY")}
+        </Box>
 
-          <Stack gap={2}>
-            <TextField name="title" label="Title" fullWidth />
-
-            <FormControl fullWidth>
-              <InputLabel>Category</InputLabel>
-              <Select value={category} label="Category" onChange={handleChange}>
-                <MenuItem value={"general"}>General</MenuItem>
-                <MenuItem value={"q&a"}>Q&A</MenuItem>
-                <MenuItem value={"Case Study"}>Case Study</MenuItem>
-              </Select>
-            </FormControl>
-
-            <Box alignSelf="flex-end" width={{ xs: "100%", sm: "auto" }}>
-              <Button variant="contained" fullWidth>
-                Create New Thread
-              </Button>
-            </Box>
-          </Stack>
-        </Card>
-      </Grid>
-    </Grid>
-  );
-};
-
-const ThreadPaper = ({ author, title, date_created }) => {
-  return (
-    <Grid xs={12} sm={6} md={4}>
-      <Stack
-        sx={{
-          borderRadius: 4,
-          overflow: "hidden",
-          position: "relative",
-        }}
-      >
-        <Stack gap={1} p={3} bgcolor="#fee9d1">
-          <Box
-            sx={{
-              lineHeight: 1.5,
-              fontWeight: 400,
-              color: "#919eab",
-              fontSize: "0.75rem",
-            }}
+        <Stack
+          component={Link}
+          href={`/forums/thread/${_id}`}
+          sx={{
+            textDecoration: "none",
+            color: "inherit",
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{ "&:hover": { textDecoration: "underline" } }}
           >
-            18 Feb 2024
-          </Box>
-
-          <Stack
-            component={Link}
-            href="/forums/thread/123"
-            sx={{
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{ "&:hover": { textDecoration: "underline" } }}
-            >
-              Thread Sample Title
-            </Typography>
-            <Typography variant="subtitle2" fontWeight={600} color="#585858">
-              Category
-            </Typography>
-          </Stack>
+            {title}
+          </Typography>
+          <Typography variant="subtitle2" fontWeight={600} color="#585858">
+            {category}
+          </Typography>
         </Stack>
       </Stack>
-    </Grid>
+    </Stack>
   );
 };
 
-const ThreadsTab = ({ value, index }) => {
+const ThreadsTab = ({ value, index, user, threads }) => {
   const [categoryTab, setCategoryTab] = useState("all");
   const handleCategoryTabChange = (event, newValue) => {
     setCategoryTab(newValue);
@@ -137,7 +65,7 @@ const ThreadsTab = ({ value, index }) => {
 
   return (
     <TabPanel value={value} index={index}>
-      <CreateThread />
+      <CreateThreadForm {...user} />
 
       <TabHeader title="My Threads" />
 
@@ -156,15 +84,20 @@ const ThreadsTab = ({ value, index }) => {
         }}
       >
         <Tab label="All" value="all" />
-        <Tab label="General" value="general" />
-        <Tab label="Q&A" value="q&a" />
-        <Tab label="Case Study" value="case study" />
+        <Tab label="General" value="General" />
+        <Tab label="Q&A" value="Q&A" />
+        <Tab label="Case Study" value="Case Study" />
       </Tabs>
 
-      <Grid container spacing={2}>
-        <ThreadPaper />
-        <ThreadPaper />
-      </Grid>
+      <Masonry columns={{ xs: 1, sm: 2, md: 3 }}>
+        {threads
+          .filter((a) => {
+            return categoryTab !== "all" ? a.category === categoryTab : true;
+          })
+          .map((thread) => (
+            <ThreadPaper key={thread._id} {...thread} />
+          ))}
+      </Masonry>
     </TabPanel>
   );
 };

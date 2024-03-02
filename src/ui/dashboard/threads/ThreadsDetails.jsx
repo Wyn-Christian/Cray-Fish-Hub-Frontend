@@ -1,7 +1,5 @@
-import { getCurrentUser } from "@/actions/admin/account";
-import { getAllCommentsByPost } from "@/actions/admin/forums";
-import CreateForumPost from "@/components/CreateForumPost";
-import ThreadPost from "@/components/ThreadPost";
+import moment from "moment";
+
 import {
   Stack,
   Container,
@@ -10,7 +8,9 @@ import {
   Avatar,
   Box,
 } from "@mui/material";
-import moment from "moment";
+
+import CreateForumPost from "@/components/CreateForumPost";
+import ThreadPost from "@/components/ThreadPost";
 
 const ThreadDetail = ({ thread, author }) => {
   return (
@@ -49,8 +49,7 @@ const ThreadDetail = ({ thread, author }) => {
   );
 };
 
-const ThreadsDetails = async ({ thread, author, posts }) => {
-  const user = await getCurrentUser();
+const ThreadsDetails = ({ thread, author, posts, user }) => {
   return (
     <Container maxWidth="md" disableGutters>
       <ThreadDetail thread={thread} author={author} />
@@ -58,16 +57,8 @@ const ThreadsDetails = async ({ thread, author, posts }) => {
       <CreateForumPost threadId={thread?._id} author={author} user={user} />
 
       <Stack gap={1}>
-        {posts.map(async (post) => {
-          let comments = await getAllCommentsByPost(post._id);
-          return (
-            <ThreadPost
-              key={post._id}
-              {...post}
-              user={user}
-              comments={comments}
-            />
-          );
+        {posts.map((post) => {
+          return <ThreadPost key={post._id} {...post} user={user} />;
         })}
       </Stack>
     </Container>

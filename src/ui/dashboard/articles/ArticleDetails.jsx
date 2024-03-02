@@ -14,7 +14,6 @@ import {
 
 import ArticleComment from "@/components/ArticleComment";
 import DisplayContent from "@/components/DisplayContent";
-import articleSample from "@/constants/articleSample";
 import CreateArticleComment from "@/components/admin/CreateArticleComment";
 
 const HeaderSection = ({ title, author, createdAt }) => {

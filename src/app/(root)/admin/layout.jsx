@@ -5,10 +5,11 @@ import navbarsize from "@/constants/navbarsize";
 
 import DashboardHeader from "@/components/admin/DashboardHeader";
 import DashboardNavBar from "@/components/admin/DashboardNavBar";
-import { getAdminDetail } from "@/actions/admin/account";
+import { getAdminDetail, isUserAdmin } from "@/actions/admin/account";
 
 const AdminDashboardLayout = async ({ children }) => {
   let userId = cookies().get("currentUser").value;
+  await isUserAdmin();
   let user = await getAdminDetail(userId);
 
   return (

@@ -35,6 +35,11 @@ const ProfileLink = ({ href, src, name, date }) => {
       <ListItemText
         primary={name}
         secondary={date}
+        primaryTypographyProps={{
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        }}
         secondaryTypographyProps={{
           sx: {
             lineHeight: 1.5,

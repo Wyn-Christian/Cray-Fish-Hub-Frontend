@@ -70,7 +70,7 @@ const ArticlePaper = ({ _id, title, content, status, author, createdAt }) => {
             href={`/admin/users/profile/${author?._id}`}
             src={author?.name}
             name={author?.name}
-            date={moment().fromNow(createdAt)}
+            date={moment(createdAt).fromNow()}
           />
         </Stack>
       </Stack>

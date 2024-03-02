@@ -1,7 +1,7 @@
 import { Avatar, ListItemText, Stack } from "@mui/material";
 import Link from "next/link";
 
-const ProfileLink = ({ href, src, name, date }) => {
+const ProfileLink = ({ href, src = "Unknown", name = "Unknown", date }) => {
   return (
     <Stack
       direction="row"
@@ -21,6 +21,11 @@ const ProfileLink = ({ href, src, name, date }) => {
       <ListItemText
         primary={name}
         secondary={date}
+        primaryTypographyProps={{
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        }}
         secondaryTypographyProps={{
           sx: {
             lineHeight: 1.5,
