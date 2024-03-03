@@ -27,10 +27,10 @@ const client_pages = [
     title: "Forums",
     route: "/forums",
   },
-  {
-    title: "Analysis",
-    route: "/analysis",
-  },
+  // {
+  //   title: "Analysis",
+  //   route: "/analysis",
+  // },
 ];
 
 const Nav = ({ title, route, toggleDrawer }) => {
