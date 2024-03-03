@@ -5,6 +5,7 @@ import TabHeader from "./TabHeader";
 import Section from "../Section";
 
 import PersonalDetailsForm from "../user/PersonalDetailsForm";
+import ChangePasswordForm from "../user/ChangePasswordForm";
 
 const ProfileTab = ({ value, index, user }) => {
   return (
@@ -14,41 +15,7 @@ const ProfileTab = ({ value, index, user }) => {
       <Grid container spacing={3}>
         <PersonalDetailsForm {...user} />
 
-        <Section
-          title="Change Password"
-          subtitle="Change your password here..."
-        >
-          <Stack gap={2}>
-            <TextField
-              name="old_password"
-              label="Old Password"
-              type="password"
-              required
-              fullWidth
-            />
-
-            <TextField
-              name="new_password"
-              label="New Password"
-              type="password"
-              required
-              fullWidth
-            />
-            <TextField
-              name="new_repassword"
-              label="Re-enter New Password"
-              type="password"
-              required
-              fullWidth
-            />
-
-            <Box alignSelf="flex-end" width={{ xs: "100%", sm: "auto" }}>
-              <Button variant="contained" fullWidth>
-                Update Password
-              </Button>
-            </Box>
-          </Stack>
-        </Section>
+        <ChangePasswordForm {...user} />
       </Grid>
     </TabPanel>
   );
