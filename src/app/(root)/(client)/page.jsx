@@ -1,5 +1,7 @@
-const HomePage = () => {
-  return <div>HomePage</div>;
+import LandingPage from "@/ui/client/LandingPage";
+
+const RootPage = () => {
+  return <LandingPage />;
 };
 
-export default HomePage;
+export default RootPage;
