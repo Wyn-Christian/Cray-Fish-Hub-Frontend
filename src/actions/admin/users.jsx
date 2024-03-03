@@ -71,3 +71,14 @@ export const editUser = async (currentState, formData) => {
     redirect(`/admin/users/profile/${result.data[0]._id}`);
   }
 };
+
+export const adminOverview = async () => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/users/admin-overview`,
+    { next: { tags: ["users", "resources", "articles"] } }
+  );
+
+  const result = await response.json();
+
+  return result?.data;
+};
