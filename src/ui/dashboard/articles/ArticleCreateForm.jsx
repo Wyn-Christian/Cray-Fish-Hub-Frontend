@@ -21,6 +21,7 @@ import DisplayContent from "@/components/DisplayContent";
 
 import { createArticle } from "@/actions/admin/articles";
 import SubmitBtn from "@/components/SubmitBtn";
+import articleCategories from "@/constants/articleCategories";
 
 const ArticleCreateForm = () => {
   const [state, formAction] = useFormState(createArticle, {});
@@ -47,9 +48,11 @@ const ArticleCreateForm = () => {
                 label="Category"
                 onChange={handleChange}
               >
-                <MenuItem value="general">General</MenuItem>
-                <MenuItem value="category 1">Category 1</MenuItem>
-                <MenuItem value="category 2">Category 2</MenuItem>
+                {articleCategories.map((cat) => (
+                  <MenuItem key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
 
