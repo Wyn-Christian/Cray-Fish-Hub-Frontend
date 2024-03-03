@@ -15,7 +15,7 @@ const ClientLayout = async ({ children }) => {
     <Box>
       <ClientNavBar isLogin={isLogin} user={user} />
 
-      <Box minHeight="200vh">{children}</Box>
+      <Box minHeight="100vh">{children}</Box>
     </Box>
   );
 };
