@@ -13,6 +13,7 @@ import Image from "next/image";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ForumIcon from "@mui/icons-material/Forum";
 import HandshakeIcon from "@mui/icons-material/Handshake";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -26,10 +27,16 @@ const HeroSection = () => {
         maxWidth: { sm: 720, md: 1236 },
       }}
     >
-      <Grid container spacing={4}>
+      <Grid
+        container
+        spacing={4}
+        sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}
+      >
         <Grid xs={12} md={6}>
           <Stack gap={2}>
-            <Typography variant="h2">Welcome to CrayFishHub!</Typography>
+            <Typography variant="h2" textAlign={{ xs: "center", md: "left" }}>
+              Welcome to CrayFishHub!
+            </Typography>
             <Typography variant="inherit">
               At CrayFishHub, we dive deep into the world of crayfish and
               celebrate their unique place in both our ecosystems and our
@@ -43,13 +50,20 @@ const HeroSection = () => {
               justifyContent={{ xs: "center", md: "flex-end" }}
             >
               <Button
+                LinkComponent={Link}
+                href="/articles"
                 disableRipple
                 sx={{ color: "#000", borderColor: "#000" }}
                 variant="outlined"
               >
                 View Articles
               </Button>
-              <Button disableRipple variant="contained">
+              <Button
+                LinkComponent={Link}
+                href="/sign-up"
+                disableRipple
+                variant="contained"
+              >
                 Join Us
               </Button>
             </Stack>
@@ -68,10 +82,14 @@ const HeroSection = () => {
 
 const MissionVisionSection = () => {
   return (
-    <Container sx={{ overflow: "hidden", py: { md: 10 } }}>
-      <Grid container spacing={{ xs: 8, md: 1 }} justifyContent="space-between">
+    <Container sx={{ overflow: "hidden", my: { xs: 3, md: 10 } }}>
+      <Grid container spacing={{ xs: 3, md: 1 }} justifyContent="space-between">
         <Grid xs={12} md={3}>
-          <Typography variant="h3" pt={{ md: 5 }}>
+          <Typography
+            variant="h3"
+            pt={{ md: 5 }}
+            textAlign={{ xs: "center", md: "left" }}
+          >
             Mission
           </Typography>
           <Typography variant="body1" mt={3} color="#636381">
@@ -120,7 +138,11 @@ const MissionVisionSection = () => {
           </Box>
         </Grid>
         <Grid xs={12} md={3}>
-          <Typography variant="h3" pt={{ md: 5 }}>
+          <Typography
+            variant="h3"
+            pt={{ md: 5 }}
+            textAlign={{ xs: "center", md: "left" }}
+          >
             Vision
           </Typography>
           <Typography variant="body1" mt={3} color="#636381">
