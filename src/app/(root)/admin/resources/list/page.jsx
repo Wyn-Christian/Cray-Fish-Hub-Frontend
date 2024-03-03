@@ -3,6 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import DashboardBreadcrumbs from "@/components/admin/DashboardBreadcrumbs";
 import ResourcesList from "@/ui/dashboard/resources/ResourcesList";
+import { getAllResources } from "@/actions/admin/resources";
 
 const links = [
   {
@@ -24,12 +25,14 @@ const new_btn = {
   route: "/admin/resources/create",
 };
 
-const ResourceListPage = () => {
+const ResourceListPage = async () => {
+  const resources = await getAllResources();
+
   return (
     <Container sx={{ px: [0, 2] }}>
       <DashboardBreadcrumbs title="List" links={links} btn={new_btn} />
 
-      <ResourcesList />
+      <ResourcesList resources={resources.data} />
     </Container>
   );
 };

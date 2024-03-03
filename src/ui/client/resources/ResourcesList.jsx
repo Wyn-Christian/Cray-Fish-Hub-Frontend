@@ -1,19 +1,22 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
-import { IconButton, Stack, Typography } from "@mui/material";
+import {
+  Stack,
+  Typography,
+  Avatar,
+  IconButton,
+  ListItemText,
+} from "@mui/material";
 import Masonry from "@mui/lab/Masonry";
-
-import TabPanel from "../UserTabPanels/TabPanel";
 
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import DownloadIcon from "@mui/icons-material/Download";
-import TabHeader from "../UserTabPanels/TabHeader";
-import moment from "moment";
 import getFileIcon from "@/utils/getFileIcon";
+import moment from "moment";
 
 const ResourcePaper = ({
-  href,
   _id,
   title,
   description,
@@ -21,25 +24,18 @@ const ResourcePaper = ({
   fileName,
   category,
   createdAt,
+  uploader,
 }) => {
   const handleClick = () => {
     window.open(filePath, "_blank", "noopener,noreferrer");
   };
   return (
     <Stack
-      component={href ? Link : "div"}
-      href={href}
       sx={{
         borderRadius: 4,
         overflow: "hidden",
         position: "relative",
-        textDecoration: "none",
-        color: "inherit",
-        transition: "all 2ms ease",
         "&:hover": {
-          "& .MuiTypography-h6": {
-            textDecoration: href ? "underline" : "none",
-          },
           boxShadow: "#919eab33 0px 0px 2px 0px, #919eab1f 0px 12px 24px -4px",
         },
       }}
@@ -67,40 +63,56 @@ const ResourcePaper = ({
           }}
         >
           <Typography variant="h6">{title}</Typography>
-          <Typography variant="caption" fontWeight={600} sx={{ color: "#777" }}>
-            {moment(createdAt).format("MMM DD, YYYY")}
-          </Typography>
           <Typography variant="subtitle2" fontWeight={600} color="#585858">
             {category}
+          </Typography>
+          <Typography variant="caption" fontWeight={500} color="#585858">
+            12k downloads
           </Typography>
         </Stack>
 
         <Typography variant="body2" color="#637381" fontWeight={400}>
           {description}
         </Typography>
+
+        <Stack
+          direction="row"
+          sx={{
+            alignItems: "center",
+            pt: 1.5,
+            color: "#212b36",
+            textDecoration: "none",
+            "&:hover": {
+              "& .MuiListItemText-primary": { textDecoration: "underline" },
+            },
+          }}
+          component={Link}
+          href={`/profile/${uploader?._id}`}
+        >
+          <Avatar src={uploader?.name} alt={uploader?.name} sx={{ mr: 1 }} />
+          <ListItemText
+            primary={uploader?.name}
+            primaryTypographyProps={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+            secondary={moment(createdAt).format("MMM DD, YYYY")}
+          />
+        </Stack>
       </Stack>
     </Stack>
   );
 };
 
-const ResourcesTab = ({ index, value, user, resources, route }) => {
+const ResourcesList = ({ resources }) => {
   return (
-    <TabPanel value={value} index={index}>
-      <TabHeader title={`${user.name}'s Resources`} />
-
-      <Masonry columns={{ xs: 1, sm: 2 }} spacing={2}>
-        {resources
-          .filter((resource) => resource.status === "Approved")
-          .map((resource) => (
-            <ResourcePaper
-              key={resource._id}
-              {...resource}
-              href={route ? `${route}/${resource._id}` : null}
-            />
-          ))}
-      </Masonry>
-    </TabPanel>
+    <Masonry columns={{ xs: 1, sm: 2, md: 4 }}>
+      {resources.map((resource) => (
+        <ResourcePaper key={resource._id} {...resource} />
+      ))}
+    </Masonry>
   );
 };
 
-export default ResourcesTab;
+export default ResourcesList;

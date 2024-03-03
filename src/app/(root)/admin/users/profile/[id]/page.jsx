@@ -6,12 +6,12 @@ import UserProfile from "@/ui/dashboard/users/UserProfile";
 import DashboardBreadcrumbs from "@/components/admin/DashboardBreadcrumbs";
 import { getUserDetail } from "@/actions/admin/users";
 import { getAllThreadsByUser } from "@/actions/users/forums";
+import { getAllResourcesByUser } from "@/actions/admin/resources";
 
 const UserProfilePage = async ({ params }) => {
   let user = await getUserDetail(params.id);
   const threads = await getAllThreadsByUser(params.id);
-
-  console.log({ threads });
+  const resources = await getAllResourcesByUser(params.id);
 
   const links = [
     {
@@ -36,7 +36,11 @@ const UserProfilePage = async ({ params }) => {
     <Container>
       <DashboardBreadcrumbs title="Profile" links={links} btn={edit_user_btn} />
 
-      <UserProfile user={user} threads={threads.data} />
+      <UserProfile
+        user={user}
+        threads={threads.data}
+        resources={resources.data}
+      />
     </Container>
   );
 };
