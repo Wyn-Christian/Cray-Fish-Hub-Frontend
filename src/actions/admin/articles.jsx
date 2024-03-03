@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 export const getAllArticles = async (page = 1, limit = 100) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/articles?page=${page}&limit=${limit}`,
-    { next: { tags: ["articles"] } }
+    { next: { tags: ["articles"] }, cache: "no-cache" }
   );
 
   const result = await response.json();

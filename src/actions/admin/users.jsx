@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 export const getAllUsers = async (page = 1, limit = 100) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/users?page=${page}&limit=${limit}`,
-    { next: { tags: ["users"] } }
+    { next: { tags: ["users"] }, cache: "no-cache" }
   );
 
   const result = await response.json();

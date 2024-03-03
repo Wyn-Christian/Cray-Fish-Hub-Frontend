@@ -8,6 +8,7 @@ export const getAllResources = async (page = 1, limit = 100) => {
     `${process.env.SERVER_URL}/resources?page=${page}&limit=${limit}`,
     {
       next: { tags: ["resources"] },
+      cache: "no-cache",
     }
   );
 
