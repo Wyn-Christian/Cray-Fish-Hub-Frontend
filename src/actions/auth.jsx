@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 const { cookies } = require("next/headers");
@@ -63,6 +64,8 @@ export const signup = async (currentState, formData) => {
     },
     body: JSON.stringify(data),
   });
+
+  revalidateTag("users");
 
   return await response.json();
 };
