@@ -29,7 +29,7 @@ const tabs = [
   },
 ];
 
-const UserProfile = ({ user, threads }) => {
+const UserProfile = ({ user, threads, resources }) => {
   const [currentTab, setCurrentTab] = useState(1);
   const handleChangeTab = (event, newValue) => {
     setCurrentTab(newValue);
@@ -48,7 +48,13 @@ const UserProfile = ({ user, threads }) => {
         <AboutProfile {...user} />
 
         <Grid xs={12} md={8}>
-          <ResourcesTab value={currentTab} index={1} user={user} />
+          <ResourcesTab
+            value={currentTab}
+            index={1}
+            user={user}
+            resources={resources}
+            route="/admin/resources/details"
+          />
           <ThreadsTab
             value={currentTab}
             index={2}
