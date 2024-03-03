@@ -35,7 +35,7 @@ const tabs = [
   },
 ];
 
-const UserDetails = ({ user, threads }) => {
+const UserDetails = ({ user, threads, resources }) => {
   const [currentTab, setCurrentTab] = useState(1);
   const handleChangeTab = (event, newValue) => {
     setCurrentTab(newValue);
@@ -52,7 +52,12 @@ const UserDetails = ({ user, threads }) => {
 
       <Box>
         <ProfileTab value={currentTab} index={1} user={user} />
-        <ResourcesTab value={currentTab} index={2} />
+        <ResourcesTab
+          value={currentTab}
+          index={2}
+          user={user}
+          resources={resources}
+        />
         <ThreadsTab
           value={currentTab}
           index={3}
