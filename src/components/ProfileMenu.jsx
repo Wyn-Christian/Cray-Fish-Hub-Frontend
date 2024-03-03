@@ -25,7 +25,7 @@ const links = [
     route: "/profile",
   },
   {
-    title: "Settings",
+    title: "Account Settings",
     route: "/user",
   },
 ];

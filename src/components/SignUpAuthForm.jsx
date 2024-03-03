@@ -1,7 +1,28 @@
+"use client";
+import { useFormState } from "react-dom";
+
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import Link from "next/link";
+import SubmitBtn from "./SubmitBtn";
+import { signup } from "@/actions/auth";
+import { useEffect } from "react";
+import { enqueueSnackbar } from "notistack";
+import { redirect } from "next/navigation";
 
 const SignUpAuthForm = () => {
+  const [state, formAction] = useFormState(signup, null);
+
+  useEffect(() => {
+    if (state?.status === "fail") {
+      enqueueSnackbar(state?.message, { variant: "error" });
+    }
+    if (state?.status === "success") {
+      enqueueSnackbar("Sign up successfully!", { variant: "success" });
+      enqueueSnackbar("Please Log in!", { variant: "success" });
+      redirect("/login");
+    }
+  }, [state]);
+
   return (
     <Box>
       <Box mb={4}>
@@ -19,51 +40,63 @@ const SignUpAuthForm = () => {
         </Typography>
       </Box>
 
-      <Box component="form" autoComplete="disabled">
+      <Box component="form" autoComplete="disabled" action={formAction}>
         <Stack gap={2}>
-          <Stack direction={{ xs: "column", sm: "row" }} gap={2}>
-            <TextField
-              label="First Name"
-              name="first_name"
-              required
-              fullWidth
-              helperText="Enter your first name"
-            />
-            <TextField
-              label="Last Name"
-              name="last_name"
-              required
-              fullWidth
-              helperText="Enter your last name"
-            />
-          </Stack>
+          <TextField
+            label="Full Name"
+            name="name"
+            required
+            fullWidth
+            helperText="Enter your first name"
+          />
 
           <TextField
             label="Username"
             name="username"
             required
-            helperText="Enter your username"
+            fullWidth
+            error={state?.message?.includes("Username")}
+            helperText={
+              state?.message?.includes("Username")
+                ? state?.message
+                : "Enter your username"
+            }
           />
           <TextField
             label="Email"
             name="email"
             type="email"
             required
-            helperText="Enter your email"
+            error={state?.message?.includes("Email")}
+            helperText={
+              state?.message?.includes("Email")
+                ? state?.message
+                : "Enter your email"
+            }
           />
           <TextField
             label="Password"
             name="password"
             type="password"
             required
-            helperText="Enter your password"
+            error={state?.message?.includes("Password")}
+            helperText={
+              state?.message?.includes("Password")
+                ? state?.message
+                : "Enter your password"
+            }
           />
           <TextField
             label="Re-enter Password"
             name="repassword"
             type="password"
             required
-            helperText="Enter your password again"
+            error={state?.message?.includes("Password")}
+            helperText={
+              state?.message?.includes("Password")
+                ? state?.message
+                : "Enter your password again"
+            }
           />
 
           <Stack
@@ -87,9 +120,7 @@ const SignUpAuthForm = () => {
             </Stack>
 
             <Box alignSelf="flex-end" width={{ xs: "100%", sm: "unset" }}>
-              <Button variant="contained" fullWidth>
-                Sign Up
-              </Button>
+              <SubmitBtn title="Sign Up" />
             </Box>
           </Stack>
         </Stack>

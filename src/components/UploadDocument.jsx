@@ -24,10 +24,10 @@ const UploadDocument = ({ file, setFile }) => {
     multiple: false,
     maxFiles: 1,
     accept: {
-      "application/msword": [],
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-        [],
-      "application/pdf": [],
+      // "application/msword": [],
+      // "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      //   [],
+      // "application/pdf": [],
       "image/jpeg": [],
       "image/png": [],
       "image/gif": [],
