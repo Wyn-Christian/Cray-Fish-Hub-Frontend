@@ -43,3 +43,26 @@ export const logout = () => {
   cookies().set("email", "");
   redirect("/");
 };
+
+export const signup = async (currentState, formData) => {
+  const data = Object.fromEntries(formData);
+
+  console.log(data);
+
+  if (data.password !== data.repassword) {
+    return {
+      status: "fail",
+      message: "Password does not match!",
+    };
+  }
+
+  const response = await fetch(`${process.env.SERVER_URL}/users `, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return await response.json();
+};
