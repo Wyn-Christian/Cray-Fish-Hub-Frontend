@@ -1,19 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import {
-  Avatar,
-  Box,
-  Card,
-  CardHeader,
-  Container,
-  ListItemText,
-  Paper,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Card, CardHeader, Container, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 import ForumIcon from "@mui/icons-material/Forum";
