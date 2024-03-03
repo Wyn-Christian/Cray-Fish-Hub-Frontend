@@ -4,7 +4,7 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const getAllArticles = async (page = 1, limit = 10) => {
+export const getAllArticles = async (page = 1, limit = 100) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/articles?page=${page}&limit=${limit}`,
     { next: { tags: ["articles"] } }
