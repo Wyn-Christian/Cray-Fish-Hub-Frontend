@@ -4,10 +4,10 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const getAllThreads = async (page = 1, limit = 10) => {
+export const getAllThreads = async (page = 1, limit = 100) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/forumthreads?page=${page}&limit=${limit}`,
-    { next: { tags: ["threads"] } }
+    { next: { tags: ["threads"] }, cache: "no-cache" }
   );
 
   const result = await response.json();
