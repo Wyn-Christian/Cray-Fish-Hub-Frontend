@@ -1,7 +1,7 @@
 import { Avatar, ListItemText, Stack } from "@mui/material";
 import Link from "next/link";
 
-const ProfileLink = ({ href, src = "Unknown", name = "Unknown", date }) => {
+const ProfileLink = ({ href, src, name = "Unknown", date }) => {
   return (
     <Stack
       direction="row"
@@ -17,7 +17,11 @@ const ProfileLink = ({ href, src = "Unknown", name = "Unknown", date }) => {
       component={Link}
       href={href}
     >
-      <Avatar src={src} alt={name} sx={{ mr: 1 }} />
+      <Avatar
+        src={src || "/assets/profile/img-1.png"}
+        alt={name}
+        sx={{ mr: 1 }}
+      />
       <ListItemText
         primary={name}
         secondary={date}

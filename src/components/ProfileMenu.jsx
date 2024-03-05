@@ -54,7 +54,7 @@ const ProfileMenu = ({ user }) => {
       >
         <Avatar
           alt={user?.name}
-          src={user?.name}
+          src={user?.coverpath ? user?.coverpath : "/assets/profile/img-1.png"}
           sx={{
             width: 36,
             height: 36,
@@ -138,10 +138,9 @@ const ProfileMenu = ({ user }) => {
         <Divider sx={{ borderStyle: "dashed", color: "#919eab33" }} />
 
         <Stack p={1}>
-          {links.map((link) => (
+          {user.userType === "Admin" && (
             <Link
-              key={link.title}
-              href={link.route}
+              href={"/admin"}
               style={{ textDecoration: "none", color: "inherit" }}
               onClick={handleClose}
             >
@@ -151,10 +150,29 @@ const ProfileMenu = ({ user }) => {
                   p: "6px 8px",
                 }}
               >
-                {link.title}
+                Go to Dashboard
               </MenuItem>
             </Link>
-          ))}
+          )}
+
+          {user.userType !== "Admin" &&
+            links.map((link) => (
+              <Link
+                key={link.title}
+                href={link.route}
+                style={{ textDecoration: "none", color: "inherit" }}
+                onClick={handleClose}
+              >
+                <MenuItem
+                  sx={{
+                    borderRadius: 1,
+                    p: "6px 8px",
+                  }}
+                >
+                  {link.title}
+                </MenuItem>
+              </Link>
+            ))}
         </Stack>
         <Divider sx={{ borderStyle: "dashed", color: "#919eab33" }} />
 
