@@ -4,11 +4,13 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const getAllThreads = async (page = 1, limit = 10) => {
+export const getAllThreads = async (searchParams) => {
+  const params = new URLSearchParams(searchParams);
+
   const response = await fetch(
-    `${process.env.SERVER_URL}/forumthreads?page=${page}&limit=${limit}`,
+    `${process.env.SERVER_URL}/forumthreads?${params.toString()}`,
     {
-      next: { tags: ["threads"] },
+      next: { tags: ["threads"], revalidate: 300 },
     }
   );
 

@@ -2,12 +2,12 @@
 
 import { revalidateTag } from "next/cache";
 
-export const getAllApprovedResources = async (page = 1, limit = 100) => {
+export const getAllApprovedResources = async (searchParams) => {
+  const params = new URLSearchParams(searchParams);
   const response = await fetch(
-    `${process.env.SERVER_URL}/resources/approved?page=${page}&limit=${limit}`,
+    `${process.env.SERVER_URL}/resources/approved?${params.toString()}`,
     {
-      next: { tags: ["resources"] },
-      cache: "no-cache",
+      next: { tags: ["resources"], revalidate: 300 },
     }
   );
 
