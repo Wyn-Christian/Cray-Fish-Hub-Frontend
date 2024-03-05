@@ -3,11 +3,10 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import Header from "@/components/Header";
 import HomeArticleList from "@/ui/client/articles/ArticleList";
 
-import { getAllArticles } from "@/actions/admin/articles";
 import { getAllPublishedArticles } from "@/actions/users/articles";
 
-const ArticlesPage = async () => {
-  const result = await getAllPublishedArticles();
+const ArticlesPage = async ({ searchParams }) => {
+  const result = await getAllPublishedArticles(searchParams);
 
   return (
     <Box>

@@ -1,8 +1,9 @@
 "use server";
 
-export const getAllPublishedArticles = async (page = 1, limit = 10) => {
+export const getAllPublishedArticles = async (searchParams) => {
+  const params = new URLSearchParams(searchParams);
   const response = await fetch(
-    `${process.env.SERVER_URL}/articles/published?page=${page}&limit=${limit}`,
+    `${process.env.SERVER_URL}/articles/published?${params.toString()}`,
     { next: { tags: ["articles"] } }
   );
 
