@@ -4,6 +4,7 @@ import Masonry from "@mui/lab/Masonry";
 
 import ProfileLink from "@/components/ProfileLink";
 import moment from "moment";
+import SearchField from "@/components/admin/SearchField";
 
 const ThreadPaper = ({ _id, author, title, category, createdAt }) => {
   return (
@@ -46,7 +47,7 @@ const ThreadPaper = ({ _id, author, title, category, createdAt }) => {
 
         <ProfileLink
           href={`/profile/${author?._id}`}
-          src={author?.name}
+          src={author?.profilePath}
           name={author?.name}
           date={moment(createdAt).format("MMM DD, YYYY")}
         />
@@ -58,6 +59,10 @@ const ThreadPaper = ({ _id, author, title, category, createdAt }) => {
 const ThreadsList = ({ threads }) => {
   return (
     <Container sx={{ mt: 3 }}>
+      <Stack mb={3}>
+        <SearchField />
+      </Stack>
+
       <Masonry columns={{ xs: 1, sm: 2, md: 3 }}>
         {threads.map((thread) => (
           <ThreadPaper key={thread._id} {...thread} />

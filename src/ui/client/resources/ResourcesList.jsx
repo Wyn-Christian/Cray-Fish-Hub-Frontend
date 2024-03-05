@@ -15,6 +15,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import DownloadIcon from "@mui/icons-material/Download";
 import getFileIcon from "@/utils/getFileIcon";
 import moment from "moment";
+import SearchField from "@/components/admin/SearchField";
 
 const ResourcePaper = ({
   _id,
@@ -107,11 +108,17 @@ const ResourcePaper = ({
 
 const ResourcesList = ({ resources }) => {
   return (
-    <Masonry columns={{ xs: 1, sm: 2, md: 4 }}>
-      {resources.map((resource) => (
-        <ResourcePaper key={resource._id} {...resource} />
-      ))}
-    </Masonry>
+    <>
+      <Stack mb={3}>
+        <SearchField />
+      </Stack>
+
+      <Masonry columns={{ xs: 1, sm: 2, md: 4 }}>
+        {resources.map((resource) => (
+          <ResourcePaper key={resource._id} {...resource} />
+        ))}
+      </Masonry>
+    </>
   );
 };
 
