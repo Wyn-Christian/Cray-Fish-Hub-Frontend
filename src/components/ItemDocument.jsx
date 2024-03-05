@@ -5,6 +5,7 @@ import { Box, IconButton, ListItemText, Stack } from "@mui/material";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import LaunchIcon from "@mui/icons-material/Launch";
 
 import getFileIcon from "@/utils/getFileIcon";
 
@@ -54,7 +55,7 @@ const ItemDocument = ({ removeFile, downloadFile, file }) => {
             window.open(file.path, "_blank", "noopener,noreferrer");
           }}
         >
-          <FileDownloadIcon />
+          <LaunchIcon />
         </IconButton>
       )}
     </Stack>
