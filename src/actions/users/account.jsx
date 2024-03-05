@@ -6,6 +6,10 @@ import { cookies } from "next/headers";
 export const getUserDetail = async () => {
   const userId = cookies().get("currentUser")?.value;
 
+  if (!userId) {
+    return null;
+  }
+
   let response = await fetch(`${process.env.SERVER_URL}/users/${userId}`, {
     next: { tags: ["users"] },
   });
