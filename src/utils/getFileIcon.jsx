@@ -9,7 +9,7 @@ const fileIcons = {
 };
 
 export default (fileName) => {
-  const extension = fileName.split(".").pop().toLowerCase();
+  const extension = fileName?.split(".").pop().toLowerCase();
   switch (extension) {
     case "xls":
     case "xlsx":
