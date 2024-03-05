@@ -29,6 +29,10 @@ const AvatarMenu = ({ user }) => {
 
   const links = [
     {
+      title: "Go to Home",
+      route: "/",
+    },
+    {
       title: "Overview",
       route: "/admin",
     },
@@ -50,7 +54,7 @@ const AvatarMenu = ({ user }) => {
       >
         <Avatar
           alt={user.name}
-          src={user.name}
+          src={user?.profilePath || "/assets/profile/img-1.png"}
           sx={{
             width: 36,
             height: 36,
