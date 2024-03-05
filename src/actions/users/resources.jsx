@@ -7,6 +7,7 @@ export const getAllApprovedResources = async (page = 1, limit = 100) => {
     `${process.env.SERVER_URL}/resources/approved?page=${page}&limit=${limit}`,
     {
       next: { tags: ["resources"] },
+      cache: "no-cache",
     }
   );
 
