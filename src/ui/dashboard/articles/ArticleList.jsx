@@ -2,12 +2,13 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Stack, Tab, Tabs, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import ProfileLink from "@/components/ProfileLink";
 import ArticleStatus from "@/components/admin/ArticleStatus";
 import moment from "moment";
+import SearchField from "@/components/admin/SearchField";
 
 const ArticlePaper = ({ _id, title, content, status, author, createdAt }) => {
   return (
@@ -46,29 +47,11 @@ const ArticlePaper = ({ _id, title, content, status, author, createdAt }) => {
             >
               <Typography variant="h5">{title}</Typography>
             </Box>
-            {/* 
-            <Typography
-              component={ReactMarkdown}
-              rehypePlugins={[rehypeHighlight]}
-              variant="body2"
-              color="#637381"
-              fontWeight={400}
-              sx={{
-                display: "-webkit-box",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-              }}
-            >
-                {htmlToMarkdown(content)}
-    
-            </Typography> */}
           </Stack>
 
           <ProfileLink
             href={`/admin/users/profile/${author?._id}`}
-            src={author?.name}
+            src={author?.profilePath}
             name={author?.name}
             date={moment(createdAt).fromNow()}
           />
@@ -83,8 +66,13 @@ const ArticleList = ({ articles }) => {
   const handleStatusTabChange = (event, newValue) => {
     setStatusTab(newValue);
   };
+
   return (
     <Box>
+      <Stack>
+        <SearchField />
+      </Stack>
+
       <Tabs
         value={statusTab}
         onChange={handleStatusTabChange}

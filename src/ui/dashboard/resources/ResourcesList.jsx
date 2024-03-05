@@ -1,5 +1,8 @@
 "use client";
 import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,6 +22,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import getFileIcon from "@/utils/getFileIcon";
 import moment from "moment";
 import ProfileLink from "@/components/ProfileLink";
+import SearchField from "@/components/admin/SearchField";
 
 const ResourceStatus = ({ value }) => {
   let color, bgcolor;
@@ -133,7 +137,7 @@ const ResourcePaper = ({
       <Box px={3} pb={3}>
         <ProfileLink
           href={`/admin/users/profile/${uploader?._id}`}
-          src={uploader?.name}
+          src={uploader?.profilePath}
           name={uploader?.name}
         />
       </Box>
@@ -149,6 +153,10 @@ const ResourcesList = ({ resources }) => {
 
   return (
     <Box>
+      <Stack>
+        <SearchField />
+      </Stack>
+
       <Tabs
         value={category}
         onChange={handleCategoryChange}

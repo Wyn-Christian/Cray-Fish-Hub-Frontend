@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Masonry } from "@mui/lab";
 import Link from "next/link";
+import SearchField from "@/components/admin/SearchField";
 
 const ProfileLink = ({ href, src, name, date }) => {
   return (
@@ -87,7 +88,7 @@ const ThreadPaper = ({ _id, author, title, category, createdAt }) => {
 
         <ProfileLink
           href={`/admin/users/profile/${author?._id}`}
-          src={author?.name}
+          src={author?.profilePath}
           name={author?.name}
           date={moment(createdAt).format("MMM DD, YYYY")}
         />
@@ -103,6 +104,9 @@ const ThreadsList = ({ threads }) => {
   };
   return (
     <Box>
+      <Stack>
+        <SearchField />
+      </Stack>
       <Tabs
         value={category}
         onChange={handleCategoryChange}

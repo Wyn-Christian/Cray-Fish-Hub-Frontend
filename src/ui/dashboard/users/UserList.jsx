@@ -26,7 +26,10 @@ const UserList = ({ data }) => {
       renderCell: ({ row, value }) => {
         return (
           <Stack direction="row" alignItems="center" gap={1}>
-            <Avatar alt={row.name} src={row.name} />
+            <Avatar
+              alt={row.name}
+              src={row?.profilePath || "/assets/profile/img-1.png"}
+            />
             <ListItemText primary={row.name} secondary={`@${row.username}`} />
           </Stack>
         );
@@ -45,13 +48,15 @@ const UserList = ({ data }) => {
       },
     },
     {
-      field: "registration",
+      field: "registrationDate",
       headerName: "Registration",
       width: 200,
       renderCell: (params) => {
         return (
           <Typography variant="body1">
-            {moment(new Date()).fromNow()}
+            {params.row.userType !== "Unregistered"
+              ? moment(params.value).fromNow()
+              : "Not yet registered..."}
           </Typography>
         );
       },
@@ -63,7 +68,7 @@ const UserList = ({ data }) => {
       renderCell: (params) => {
         return (
           <Typography variant="body1">
-            {moment(new Date()).fromNow()}
+            {moment(params.value).fromNow()}
           </Typography>
         );
       },
