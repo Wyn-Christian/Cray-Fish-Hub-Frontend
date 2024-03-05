@@ -26,7 +26,7 @@ import Section from "@/components/Section";
 
 const UserEditForm = ({ user }) => {
   const [role, setRole] = useState(user.userType);
-  const [state, formAction] = useFormState(editUser, user);
+  const [state, formAction] = useFormState(editUser, null);
 
   const [profilePic, setProfilePic] = useState(null);
 
@@ -36,6 +36,7 @@ const UserEditForm = ({ user }) => {
 
   return (
     <form action={formAction}>
+      <input hidden name="id" defaultValue={user._id} />
       <Grid container spacing={3}>
         {/* <Grid xs={12} md={4}>
           <Card
