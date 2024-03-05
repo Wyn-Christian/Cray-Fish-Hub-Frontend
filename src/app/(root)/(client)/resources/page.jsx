@@ -4,8 +4,8 @@ import { Box, Container } from "@mui/material";
 import ResourcesList from "@/ui/client/resources/ResourcesList";
 import { getAllApprovedResources } from "@/actions/users/resources";
 
-const ResourcesPage = async () => {
-  const resources = await getAllApprovedResources();
+const ResourcesPage = async ({ searchParams }) => {
+  const resources = await getAllApprovedResources(searchParams);
 
   return (
     <Box>

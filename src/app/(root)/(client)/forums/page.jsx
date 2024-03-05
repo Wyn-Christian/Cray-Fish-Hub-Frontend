@@ -4,8 +4,8 @@ import Header from "@/components/Header";
 import ThreadsList from "@/ui/client/forums/ThreadsList";
 import { getAllThreads } from "@/actions/users/forums";
 
-const ForumsPage = async () => {
-  const threads = await getAllThreads();
+const ForumsPage = async ({ searchParams }) => {
+  const threads = await getAllThreads(searchParams);
 
   return (
     <Box>
