@@ -4,9 +4,11 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const getAllThreads = async (page = 1, limit = 100) => {
+export const getAllThreads = async (searchParams) => {
+  let params = new URLSearchParams(searchParams);
+
   const response = await fetch(
-    `${process.env.SERVER_URL}/forumthreads?page=${page}&limit=${limit}`,
+    `${process.env.SERVER_URL}/forumthreads?${params.toString()}`,
     { next: { tags: ["threads"] }, cache: "no-cache" }
   );
 
@@ -99,4 +101,44 @@ export const createPostComment = async (currentState, formData) => {
   if (result.status == "success") {
     revalidateTag("comments");
   }
+};
+
+export const deleteThread = async (currentState, formData) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/forumthreads/${formData.get("id")}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status == "success") {
+    revalidateTag("threads");
+  }
+
+  return result;
+};
+
+export const deletePost = async (currentState, formData) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/forumposts/${formData.get("id")}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status == "success") {
+    revalidateTag("posts");
+  }
+
+  return result;
 };

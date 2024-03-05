@@ -4,9 +4,11 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const getAllArticles = async (page = 1, limit = 100) => {
+export const getAllArticles = async (searchParams) => {
+  let params = new URLSearchParams(searchParams);
+
   const response = await fetch(
-    `${process.env.SERVER_URL}/articles?page=${page}&limit=${limit}`,
+    `${process.env.SERVER_URL}/articles?${params.toString()}`,
     { next: { tags: ["articles"] }, cache: "no-cache" }
   );
 
@@ -112,4 +114,24 @@ export const editArticle = async (currentState, formData) => {
     revalidateTag("articles");
     redirect(`/admin/articles/details/${result.data[0]._id}`);
   }
+};
+
+export const deleteArticle = async (currentState, formData) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/articles/${formData.get("id")}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status == "success") {
+    revalidateTag("articles");
+  }
+
+  return result;
 };

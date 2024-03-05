@@ -3,9 +3,11 @@
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-export const getAllResources = async (page = 1, limit = 100) => {
+export const getAllResources = async (searchParams) => {
+  let params = new URLSearchParams(searchParams);
+
   const response = await fetch(
-    `${process.env.SERVER_URL}/resources?page=${page}&limit=${limit}`,
+    `${process.env.SERVER_URL}/resources?${params.toString()}`,
     {
       next: { tags: ["resources"] },
       cache: "no-cache",
@@ -83,5 +85,25 @@ export const updateResourceStatus = async (currentState, formData) => {
   if (result.status == "success") {
     revalidateTag("resources");
   }
+  return result;
+};
+
+export const deleteResource = async (currentState, formData) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/resources/${formData.get("id")}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status == "success") {
+    revalidateTag("resources");
+  }
+
   return result;
 };

@@ -28,10 +28,6 @@ export const getUserDetail = async (id) => {
 };
 
 export const createUser = async (currentState, formData) => {
-  // console.log(cookies().get("currentUser").value);
-  // console.log(currentState, formData);
-  // await new Promise((res) => setTimeout(res, 1000));
-  // console.log(formData);
   const new_user = Object.fromEntries(formData);
 
   const response = await fetch(`${process.env.SERVER_URL}/users`, {
@@ -53,16 +49,13 @@ export const createUser = async (currentState, formData) => {
 export const editUser = async (currentState, formData) => {
   const user = Object.fromEntries(formData);
 
-  const response = await fetch(
-    `${process.env.SERVER_URL}/users/${currentState?._id}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    }
-  );
+  const response = await fetch(`${process.env.SERVER_URL}/users/${user?.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
 
   const result = await response.json();
 
