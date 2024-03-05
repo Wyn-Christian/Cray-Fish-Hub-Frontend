@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   Box,
   Button,
@@ -13,9 +15,12 @@ import Image from "next/image";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ForumIcon from "@mui/icons-material/Forum";
 import HandshakeIcon from "@mui/icons-material/Handshake";
-import Link from "next/link";
+
+import { isUserLogin } from "@/actions/users/account";
 
 const HeroSection = () => {
+  const isLogin = isUserLogin();
+
   return (
     <Box
       sx={{
@@ -58,14 +63,16 @@ const HeroSection = () => {
               >
                 View Articles
               </Button>
-              <Button
-                LinkComponent={Link}
-                href="/sign-up"
-                disableRipple
-                variant="contained"
-              >
-                Join Us
-              </Button>
+              {!isLogin && (
+                <Button
+                  LinkComponent={Link}
+                  href="/sign-up"
+                  disableRipple
+                  variant="contained"
+                >
+                  Join Us
+                </Button>
+              )}
             </Stack>
           </Stack>
         </Grid>
