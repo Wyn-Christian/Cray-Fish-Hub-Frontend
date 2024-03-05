@@ -25,8 +25,8 @@ const new_user_btn = {
   route: "/admin/forums/create",
 };
 
-const ForumListPage = async () => {
-  const threads = await getAllThreads();
+const ForumListPage = async ({ searchParams }) => {
+  const threads = await getAllThreads(searchParams);
 
   return (
     <Container

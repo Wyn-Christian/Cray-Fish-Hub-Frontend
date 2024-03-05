@@ -25,8 +25,8 @@ const new_user_btn = {
   route: "/admin/articles/create",
 };
 
-const ArticleListPage = async () => {
-  const result = await getAllArticles();
+const ArticleListPage = async ({ searchParams }) => {
+  const result = await getAllArticles(searchParams);
 
   return (
     <Container sx={{ px: [0, 2] }}>

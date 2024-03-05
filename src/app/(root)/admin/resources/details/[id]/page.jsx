@@ -2,8 +2,10 @@ import Link from "next/link";
 
 import { Box, Button, Container, Stack } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import DeleteBtn from "@/components/DeleteBtn";
 import ResourcesDetails from "@/ui/dashboard/resources/ResourcesDetails";
-import { getResourcesDetails } from "@/actions/admin/resources";
+
+import { deleteResource, getResourcesDetails } from "@/actions/admin/resources";
 
 const ResourceDetailsPage = async ({ params }) => {
   const resource = await getResourcesDetails(params.id);
@@ -25,6 +27,12 @@ const ResourceDetailsPage = async ({ params }) => {
           >
             Back
           </Button>
+          <DeleteBtn
+            id={params.id}
+            href="/admin/resources/list"
+            action={deleteResource}
+            title="Confirm Resource Deletion"
+          />
         </Stack>
       </Box>
 

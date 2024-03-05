@@ -3,7 +3,13 @@ import Link from "next/link";
 import { Box, Button, Container, Stack } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ThreadsDetails from "@/ui/dashboard/threads/ThreadsDetails";
-import { getAllPostsByThreads, getThreadDetails } from "@/actions/admin/forums";
+import DeleteBtn from "@/components/DeleteBtn";
+
+import {
+  deleteThread,
+  getAllPostsByThreads,
+  getThreadDetails,
+} from "@/actions/admin/forums";
 import { getCurrentUser } from "@/actions/admin/account";
 
 const ForumDetailsPage = async ({ params }) => {
@@ -28,6 +34,13 @@ const ForumDetailsPage = async ({ params }) => {
           >
             Back
           </Button>
+
+          <DeleteBtn
+            id={params.id}
+            href="/admin/forums/list"
+            action={deleteThread}
+            title="Confirm Thread Deletion"
+          />
         </Stack>
       </Box>
 

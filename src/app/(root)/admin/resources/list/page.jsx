@@ -25,8 +25,8 @@ const new_btn = {
   route: "/admin/resources/create",
 };
 
-const ResourceListPage = async () => {
-  const resources = await getAllResources();
+const ResourceListPage = async ({ searchParams }) => {
+  const resources = await getAllResources(searchParams);
 
   return (
     <Container sx={{ px: [0, 2] }}>

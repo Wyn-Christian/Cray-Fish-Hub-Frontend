@@ -7,7 +7,13 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import ArticleStatus from "@/components/admin/ArticleStatus";
 import ArticleDetails from "@/ui/dashboard/articles/ArticleDetails";
-import { getArticleComments, getArticleDetail } from "@/actions/admin/articles";
+import {
+  deleteArticle,
+  getArticleComments,
+  getArticleDetail,
+} from "@/actions/admin/articles";
+
+import DeleteBtn from "@/components/DeleteBtn";
 
 const ArticleNav = ({ id, status }) => {
   return (
@@ -22,17 +28,31 @@ const ArticleNav = ({ id, status }) => {
         >
           Back
         </Button>
-        <Stack direction="row" alignItems="center" gap={1}>
+        <Stack
+          direction={["column", "row"]}
+          alignItems={["flex-end", "center"]}
+          gap={1}
+        >
           <ArticleStatus value={status} />
-          <Button
-            startIcon={<EditIcon />}
-            size="small"
-            variant="contained"
-            LinkComponent={Link}
-            href={`/admin/articles/edit/${id}`}
-          >
-            Edit
-          </Button>
+
+          <Stack direction="row" gap={1}>
+            <DeleteBtn
+              id={id}
+              href="/admin/articles/list"
+              action={deleteArticle}
+              title="Confirm Article Deletion"
+            />
+
+            <Button
+              startIcon={<EditIcon />}
+              size="small"
+              variant="contained"
+              LinkComponent={Link}
+              href={`/admin/articles/edit/${id}`}
+            >
+              Edit
+            </Button>
+          </Stack>
         </Stack>
       </Stack>
     </Box>
