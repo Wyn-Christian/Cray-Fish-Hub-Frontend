@@ -9,17 +9,20 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Image from "next/image";
 
 const UploadProfilePic = ({ photo, setPhoto, defaultPhoto }) => {
+  const [previewPhoto, setPreviewPhoto] = useState(null);
+
   // const onDrop = useCallback((uploaded_photo) => {
   //   setPhoto(uploaded_photo[0]);
   //   console.log(photo.path);
   // }, []);
 
   const onDrop = useCallback((uploaded_photo) => {
-    let new_photo = Object.assign(uploaded_photo[0], {
+    let preview_photo = Object.assign(uploaded_photo[0], {
       preview: URL.createObjectURL(uploaded_photo[0]),
     });
 
-    setPhoto(new_photo);
+    setPhoto(uploaded_photo[0]);
+    setPreviewPhoto(preview_photo);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -77,7 +80,7 @@ const UploadProfilePic = ({ photo, setPhoto, defaultPhoto }) => {
             </Box>
           )}
 
-          {photo && (
+          {previewPhoto && (
             <Box
               sx={{
                 overflow: "hidden",
@@ -88,7 +91,7 @@ const UploadProfilePic = ({ photo, setPhoto, defaultPhoto }) => {
                 borderRadius: "50%",
               }}
             >
-              <Image src={photo.preview} alt="User Profile pic" fill />
+              <Image src={previewPhoto.preview} alt="User Profile pic" fill />
             </Box>
           )}
 
