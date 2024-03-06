@@ -17,13 +17,17 @@ import Section from "@/components/Section";
 import UploadDocument from "@/components/UploadDocument";
 import { createResource } from "@/actions/admin/resources";
 import SubmitBtn from "@/components/SubmitBtn";
+import { enqueueSnackbar } from "notistack";
+import { redirect } from "next/navigation";
 
-const uploadImage = async (file) => {
+const uploadDocuments = async (files) => {
   const formData = new FormData();
-  formData.append("image", file);
+  files.forEach((file) => {
+    formData.append("documents", file, file.name);
+  });
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/upload/image`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/upload/documents`,
     {
       method: "POST",
       body: formData,
@@ -31,11 +35,16 @@ const uploadImage = async (file) => {
   );
 
   const result = await response.json();
-  return result.data[0];
+
+  if (files.status === "fail") {
+    enqueueSnackbar("Upload failed.", { variant: "fail" });
+    return null;
+  }
+  return result.data;
 };
 
 const ResourcesCreateForm = ({ user }) => {
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -52,20 +61,27 @@ const ResourcesCreateForm = ({ user }) => {
   };
 
   async function formAction() {
-    if (!file) return;
+    if (!files.length) {
+      enqueueSnackbar("Upload at least 1 document...", { variant: "warning" });
+      return;
+    }
 
-    const fileinfo = await uploadImage(file);
+    const uploaded_files = await uploadDocuments(files);
+
+    if (!uploaded_files) return;
 
     const new_resource = {
       ...formData,
       uploader: user._id,
       status: "Approved",
-      filePath: fileinfo.path,
-      fileSize: fileinfo.size,
-      fileName: fileinfo.name,
+      files: uploaded_files,
     };
 
-    await createResource(new_resource);
+    let result = await createResource(new_resource);
+    if (result.status === "success") {
+      enqueueSnackbar("Create Resource successfully!", { variant: "success" });
+      redirect(`/admin/resources/details/${result.data[0]._id}`);
+    }
   }
 
   return (
@@ -110,7 +126,7 @@ const ResourcesCreateForm = ({ user }) => {
               required
             />
 
-            <UploadDocument file={file} setFile={setFile} />
+            <UploadDocument allFiles={files} setAllFiles={setFiles} />
 
             <Box alignSelf="flex-end" width={{ xs: "100%", sm: "auto" }}>
               <SubmitBtn title="Upload Resource" />
