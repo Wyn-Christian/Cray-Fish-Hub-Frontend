@@ -88,7 +88,7 @@ const ThreadPaper = ({ _id, author, title, category, createdAt }) => {
 
         <ProfileLink
           href={`/admin/users/profile/${author?._id}`}
-          src={author?.profilePath}
+          src={author?.profilePath || "/assets/profile/img-1.png"}
           name={author?.name}
           date={moment(createdAt).format("MMM DD, YYYY")}
         />
