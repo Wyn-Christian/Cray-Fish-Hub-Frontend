@@ -9,7 +9,7 @@ import LaunchIcon from "@mui/icons-material/Launch";
 
 import getFileIcon from "@/utils/getFileIcon";
 
-const ItemDocument = ({ removeFile, downloadFile, file }) => {
+const ItemDocument = ({ index, removeFile, downloadFile, file }) => {
   const fileSize =
     typeof file.size === "number" ? prettyBytes(file.size) : "Unknown size";
   return (
@@ -19,7 +19,6 @@ const ItemDocument = ({ removeFile, downloadFile, file }) => {
         flexDirection: "row",
         gap: 2,
         alignItems: "center",
-        my: 1,
         p: "8px 12px",
         borderRadius: 1,
         border: "1px solid #919eab29",
@@ -45,7 +44,10 @@ const ItemDocument = ({ removeFile, downloadFile, file }) => {
         secondaryTypographyProps={{ color: "#919eab" }}
       />
       {removeFile ? (
-        <IconButton size="small" onClick={() => removeFile(file.path)}>
+        <IconButton
+          size="small"
+          onClick={() => removeFile(`${file.path}-${index}`)}
+        >
           <ClearIcon />
         </IconButton>
       ) : (
