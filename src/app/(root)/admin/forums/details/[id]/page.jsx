@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import { Box, Button, Container, Stack } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import EditIcon from "@mui/icons-material/Edit";
+
 import ThreadsDetails from "@/ui/dashboard/threads/ThreadsDetails";
 import DeleteBtn from "@/components/DeleteBtn";
 
@@ -35,12 +37,24 @@ const ForumDetailsPage = async ({ params }) => {
             Back
           </Button>
 
-          <DeleteBtn
-            id={params.id}
-            href="/admin/forums/list"
-            action={deleteThread}
-            title="Confirm Thread Deletion"
-          />
+          <Stack direction="row" gap={1}>
+            <DeleteBtn
+              id={params.id}
+              href="/admin/forums/list"
+              action={deleteThread}
+              title="Confirm Thread Deletion"
+            />
+
+            <Button
+              startIcon={<EditIcon />}
+              size="small"
+              variant="contained"
+              LinkComponent={Link}
+              href={`/admin/forums/edit/${params.id}`}
+            >
+              Edit
+            </Button>
+          </Stack>
         </Stack>
       </Box>
 
