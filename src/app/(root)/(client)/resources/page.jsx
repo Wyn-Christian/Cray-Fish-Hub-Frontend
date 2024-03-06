@@ -8,7 +8,7 @@ const ResourcesPage = async ({ searchParams }) => {
   const resources = await getAllApprovedResources(searchParams);
 
   return (
-    <Box>
+    <Box mb={30}>
       <Header title="Resources" />
 
       <Container sx={{ mt: 3 }}>

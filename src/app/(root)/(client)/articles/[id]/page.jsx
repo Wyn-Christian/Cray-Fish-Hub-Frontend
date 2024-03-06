@@ -6,10 +6,10 @@ import { isUserLogin } from "@/actions/users/account";
 const ArticleDetailPage = async ({ params }) => {
   let article = await getArticleDetail(params.id);
   let comments = await getArticleComments(params.id);
-  let isLogin = await isUserLogin();
+  let isLogin = isUserLogin();
 
   return (
-    <Box>
+    <Box mb={30}>
       <ArticleDetails {...article} comments={comments} isLogin={isLogin} />
     </Box>
   );
