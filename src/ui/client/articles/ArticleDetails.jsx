@@ -45,7 +45,7 @@ const ArticleHeader = ({ title, author, createdAt }) => (
         <Stack gap={2} direction="row" alignItems="center">
           <Avatar
             alt={author?.name}
-            src={author?.name}
+            src={author?.profilePath || "/assets/profile/img-1.png"}
             sx={{ width: 50, height: 50 }}
           />
           <ListItemText

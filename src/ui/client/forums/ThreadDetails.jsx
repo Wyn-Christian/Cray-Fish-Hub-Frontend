@@ -51,8 +51,8 @@ const ThreadDetail = ({ title, createdAt, author }) => {
 
         <Stack direction="row" gap={2} alignItems="center">
           <Avatar
-            src={author?.name}
             alt={author?.name}
+            src={author?.profilePath || "/assets/profile/img-1.png"}
             sx={{ width: 50, height: 50 }}
           />
           <Stack direction="row" alignItems="center" gap={1}>
@@ -72,7 +72,7 @@ const ThreadDetail = ({ title, createdAt, author }) => {
 
 const ThreadDetails = ({ thread, author, posts, user }) => {
   return (
-    <Box>
+    <Box mb={30}>
       <ThreadHeader {...thread} />
 
       <Container maxWidth="md" sx={{ mt: 3 }}>
