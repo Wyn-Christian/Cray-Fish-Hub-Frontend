@@ -23,12 +23,12 @@ import Section from "../Section";
 import { createUserResource } from "@/actions/users/resources";
 import { enqueueSnackbar } from "notistack";
 
-const uploadImage = async (file) => {
+const uploadImage = async (files) => {
   const formData = new FormData();
-  formData.append("image", file);
+  formData.append("documents", files);
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/upload/image`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/upload/documents`,
     {
       method: "POST",
       body: formData,
@@ -36,13 +36,13 @@ const uploadImage = async (file) => {
   );
 
   const result = await response.json();
-  return result.data[0];
+  return result.data;
 };
 
 const UploadResourceForm = ({ userType, _id }) => {
   const isUserRegistered = userType === "Registered";
 
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -60,9 +60,9 @@ const UploadResourceForm = ({ userType, _id }) => {
   };
 
   async function formAction() {
-    if (!file) return;
+    if (!files) return;
 
-    const fileinfo = await uploadImage(file);
+    const fileinfo = await uploadImage(files);
 
     const new_resource = {
       ...formData,
@@ -82,7 +82,7 @@ const UploadResourceForm = ({ userType, _id }) => {
         category: "",
       });
 
-      setFile(null);
+      setFiles(null);
       enqueueSnackbar("Resource Uploaded Successfully", { variant: "success" });
     }
   }
@@ -135,7 +135,7 @@ const UploadResourceForm = ({ userType, _id }) => {
               required
             />
 
-            <UploadDocument file={file} setFile={setFile} />
+            <UploadDocument allFiles={files} setAllFiles={setFiles} />
 
             <Box alignSelf="flex-end" width={{ xs: "100%", sm: "auto" }}>
               <SubmitBtn
