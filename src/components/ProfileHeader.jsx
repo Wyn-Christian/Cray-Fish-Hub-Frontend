@@ -41,8 +41,8 @@ const ProfileHeader = ({ currentTab, handleChangeTab, tabs, user }) => {
           }}
         >
           <Avatar
-            alt={user.name}
-            src={user.name}
+            alt={user?.name}
+            src={user?.profilePath || "/assets/profile/img-1.png"}
             sx={{
               mx: "auto",
               border: "2px solid #fff",

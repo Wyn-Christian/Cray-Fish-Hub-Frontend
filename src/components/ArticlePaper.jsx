@@ -1,11 +1,12 @@
+import Link from "next/link";
+import moment from "moment";
+
 import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import ProfileLink from "./ProfileLink";
-import Link from "next/link";
-import moment from "moment";
 
-const ArticlePaper = ({ _id, title, content, status, author, createdAt }) => {
+const ArticlePaper = ({ _id, title, author, createdAt }) => {
   return (
     <Grid xs={12} md={6} lg={4}>
       <Stack
@@ -43,7 +44,7 @@ const ArticlePaper = ({ _id, title, content, status, author, createdAt }) => {
 
           <ProfileLink
             href={`/profile/${author?._id}`}
-            src={author?.name}
+            src={author?.profilePath}
             name={author?.name}
             date={moment(createdAt).format("MMM DD, YYYY")}
           />

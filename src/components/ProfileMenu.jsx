@@ -54,7 +54,7 @@ const ProfileMenu = ({ user }) => {
       >
         <Avatar
           alt={user?.name}
-          src={user?.coverpath ? user?.coverpath : "/assets/profile/img-1.png"}
+          src={user?.profilePath || "/assets/profile/img-1.png"}
           sx={{
             width: 36,
             height: 36,

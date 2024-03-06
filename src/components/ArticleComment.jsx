@@ -9,7 +9,10 @@ const ArticleComment = ({ author, content, createdAt }) => (
       href={`/profile/${author._id}`}
       sx={{ textDecoration: "none" }}
     >
-      <Avatar alt={author?.name} src={author?.name} />
+      <Avatar
+        alt={author?.name}
+        src={author?.profilePath || "/assets/profile/img-1.png"}
+      />
     </Box>
     <Stack flexGrow={1}>
       <Box

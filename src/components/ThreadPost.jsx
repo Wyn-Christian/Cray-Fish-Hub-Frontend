@@ -34,7 +34,7 @@ const ThreadPost = ({ _id, content, author, createdAt, user, comments }) => {
           >
             <Avatar
               alt={author?.name}
-              src={author?.name}
+              src={author?.profilePath || "/assets/profile/img-1.png"}
               sx={{ width: 50, height: 50 }}
             />
           </Box>

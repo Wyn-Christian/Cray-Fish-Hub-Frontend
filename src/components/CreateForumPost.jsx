@@ -21,8 +21,8 @@ const CreateForumPost = ({ threadId, user }) => {
           alignItems={["flex-end", "center"]}
         >
           <Avatar
-            src={user?.name}
             alt={user?.name}
+            src={user?.profilePath || "/assets/profile/img-1.png"}
             sx={{ width: 50, height: 50, display: ["none", "inline-flex"] }}
           />
           <input hidden name="thread" defaultValue={threadId} />

@@ -22,7 +22,7 @@ const CreateComment = ({ postId, user }) => {
           >
             <Avatar
               alt={user?.name}
-              src={user?.name}
+              src={user?.profilePath || "/assets/profile/img-1.png"}
               sx={{ display: { xs: "none", sm: "inline-flex" } }}
             />
             <input hidden name="post" defaultValue={postId} />

@@ -18,7 +18,7 @@ const PostComment = ({ content, createdAt, author }) => {
           <Stack alignItems="center" gap={0.5}>
             <Avatar
               alt={author?.name}
-              src={author?.name}
+              src={author?.profilePath || "/assets/profile/img-1.png"}
               sx={{ width: 50, height: 50 }}
             />
             <Box height="100%">
