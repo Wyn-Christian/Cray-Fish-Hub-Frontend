@@ -72,6 +72,7 @@ const ResourcePaper = ({
   title,
   category,
   description,
+  files,
   filePath,
   createdAt,
   status,
@@ -106,17 +107,20 @@ const ResourcePaper = ({
             {moment(createdAt).format("MMM DD, YYYY")}
           </Typography>
         </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
-          <Image
-            src={getFileIcon(filePath)}
-            alt="File Icon"
-            width={50}
-            height={50}
-          />
+        <Stack direction="row" spacing={-2.5} alignItems="flex-end">
+          {files?.slice(0, 3).map((file) => (
+            <Image
+              src={getFileIcon(file.path)}
+              alt="File Icon"
+              width={50}
+              height={50}
+            />
+          ))}
+          {files.length > 3 && (
+            <Typography variant="h5" pl={2}>
+              ...
+            </Typography>
+          )}
         </Stack>
         <Stack
           sx={{
@@ -153,7 +157,7 @@ const ResourcesList = ({ resources }) => {
 
   return (
     <Box>
-      <Stack>
+      <Stack mb={1}>
         <SearchField />
       </Stack>
 
