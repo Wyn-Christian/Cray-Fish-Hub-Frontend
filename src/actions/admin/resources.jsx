@@ -62,8 +62,32 @@ export const createResource = async (data) => {
 
   if (result.status == "success") {
     revalidateTag("resources");
-    redirect(`/admin/resources/details/${result.data[0]._id}`);
   }
+  return result;
+};
+
+export const updateResource = async (data) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/resources/${data._id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      next: {
+        tags: ["resources"],
+      },
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status == "success") {
+    revalidateTag("resources");
+  }
+  console.log(result);
+  return result;
 };
 
 export const updateResourceStatus = async (currentState, formData) => {
