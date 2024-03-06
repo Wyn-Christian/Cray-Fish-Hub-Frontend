@@ -24,21 +24,70 @@ import { editUser } from "@/actions/admin/users";
 import SubmitBtn from "@/components/SubmitBtn";
 import Section from "@/components/Section";
 
+const uploadImage = async (file) => {
+  const formData = new FormData();
+
+  formData.append("image", file);
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/upload/image`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status === "fail") {
+    enqueueSnackbar("Upload failed.", { variant: "fail" });
+    return null;
+  }
+  return result.data[0].path;
+};
+
 const UserEditForm = ({ user }) => {
-  const [role, setRole] = useState(user.userType);
-  const [state, formAction] = useFormState(editUser, null);
+  // const [state, formAction] = useFormState(editUser, null);
+
+  const [formData, setFormData] = useState(user);
 
   const [profilePic, setProfilePic] = useState(null);
 
-  const handleChange = (event) => {
-    setRole(event.target.value);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
+
+  async function formAction() {
+    const updated_user = {
+      ...formData,
+    };
+
+    if (profilePic) {
+      let profilePath = await uploadImage(profilePic);
+      updated_user.profilePath = profilePath;
+
+      console.log("Image uploaded", profilePath);
+    }
+
+    let result = await editUser(updated_user);
+
+    if (result.status === "success") {
+      enqueueSnackbar("User update successfully!", { variant: "success" });
+
+      redirect(`/admin/users/profiles/${user._id}`);
+    }
+  }
 
   return (
     <form action={formAction}>
       <input hidden name="id" defaultValue={user._id} />
       <Grid container spacing={3}>
-        {/* <Grid xs={12} md={4}>
+        <Grid xs={12} md={4}>
           <Card
             elevation={0}
             sx={{
@@ -55,67 +104,84 @@ const UserEditForm = ({ user }) => {
               <UploadProfilePic
                 photo={profilePic}
                 setPhoto={setProfilePic}
-                defaultPhoto={"/assets/profile/pic-6.jpg"}
+                defaultPhoto={user?.profilePath}
               />
             </Box>
           </Card>
-        </Grid> */}
+        </Grid>
 
-        <Section title="User Details" subtitle="Edit user details here...">
-          <Grid container spacing={2}>
-            <Grid xs={12}>
-              <TextField
-                name="name"
-                label="Full name"
-                fullWidth
-                defaultValue={user.name}
-              />
-            </Grid>
-            <Grid xs={12} md={5}>
-              <TextField
-                name="username"
-                label="Username"
-                fullWidth
-                // value="chaeyo.0"
-                defaultValue={user.username}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">@</InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            <Grid xs={12} md={7}>
-              <TextField
-                name="email"
-                label="Email"
-                fullWidth
-                // value="chaeyoung@gmail.com"
-                defaultValue={user.email}
-              />
+        {/* <Section title="User Details" subtitle="Edit user details here..."> */}
+
+        <Grid xs={12} md={8}>
+          <Card
+            elevation={0}
+            sx={{
+              boxShadow:
+                "#919eab33 0px 0px 2px 0px, #919eab33 0px 12px 24px -4px",
+              borderRadius: 4,
+              zIndex: 0,
+              px: 3,
+              pb: 3,
+            }}
+          >
+            <CardHeader title="User Details" />
+            <Grid container spacing={2}>
+              <Grid xs={12}>
+                <TextField
+                  name="name"
+                  label="Full name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid xs={12} md={5}>
+                <TextField
+                  name="username"
+                  label="Username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">@</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid xs={12} md={7}>
+                <TextField
+                  name="email"
+                  label="Email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  fullWidth
+                />
+              </Grid>
+
+              <Grid xs={12} md={5}>
+                <FormControl fullWidth>
+                  <InputLabel>Role</InputLabel>
+                  <Select
+                    name="userType"
+                    value={formData.userType}
+                    onChange={handleInputChange}
+                    label="Role"
+                  >
+                    <MenuItem value="Admin">Admin</MenuItem>
+                    <MenuItem value="Registered">Registered User</MenuItem>
+                    <MenuItem value="Unregistered">Unregistered User</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
             </Grid>
 
-            <Grid xs={12} md={5}>
-              <FormControl fullWidth>
-                <InputLabel>Role</InputLabel>
-                <Select
-                  name="userType"
-                  value={role}
-                  label="Role"
-                  onChange={handleChange}
-                >
-                  <MenuItem value="Admin">Admin</MenuItem>
-                  <MenuItem value="Registered">Registered User</MenuItem>
-                  <MenuItem value="Unregistered">Unregistered User</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-
-          <Stack alignItems="flex-end" mt={3}>
-            <SubmitBtn title="Save Changes" />
-          </Stack>
-        </Section>
+            <Stack alignItems="flex-end" mt={3}>
+              <SubmitBtn title="Save Changes" />
+            </Stack>
+            {/* </Section> */}
+          </Card>
+        </Grid>
       </Grid>
     </form>
   );
