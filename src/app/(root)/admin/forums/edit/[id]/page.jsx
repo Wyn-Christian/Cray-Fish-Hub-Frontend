@@ -1,7 +1,8 @@
 import { Container } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 
 import DashboardBreadcrumbs from "@/components/admin/DashboardBreadcrumbs";
+
+import { getThreadDetails } from "@/actions/admin/forums";
 
 const links = [
   {
@@ -18,6 +19,8 @@ const links = [
 ];
 
 const ForumEditPage = async ({ params }) => {
+  const thread = await getThreadDetails(params.id);
+
   return (
     <Container
       sx={{
@@ -26,7 +29,7 @@ const ForumEditPage = async ({ params }) => {
         flexDirection: "column",
       }}
     >
-      <DashboardBreadcrumbs title="List" links={links} />
+      <DashboardBreadcrumbs title="Edit" links={links} />
     </Container>
   );
 };
