@@ -20,8 +20,8 @@ const ThreadDetail = ({ thread, author }) => {
 
         <Stack direction="row" gap={2} alignItems="center">
           <Avatar
-            src={author?.name}
             alt={author?.name}
+            src={author?.profilePath || "/assets/profile/img-1.png"}
             sx={{ width: 50, height: 50 }}
           />
           <Stack
