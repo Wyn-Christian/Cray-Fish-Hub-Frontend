@@ -14,9 +14,7 @@ const ResourcesDetails = ({
   description,
   category,
   status,
-  filePath,
-  fileName,
-  fileSize,
+  files,
   uploader,
 }) => {
   return (
@@ -26,7 +24,7 @@ const ResourcesDetails = ({
           title="Details"
           subtitle="Here are the details of the resource"
         >
-          <Stack gap={1}>
+          <Stack gap={2}>
             <Detail title="Title" value={title} />
             <Detail title="Category" value={category} />
             <Detail title="Description">
@@ -34,14 +32,12 @@ const ResourcesDetails = ({
                 {description}
               </Typography>
             </Detail>
-            <Detail title="File">
-              <ItemDocument
-                file={{
-                  path: filePath,
-                  name: fileName,
-                  size: fileSize,
-                }}
-              />
+            <Detail title="Files">
+              <Stack gap={1}>
+                {files?.map((file, i) => (
+                  <ItemDocument key={i} file={file} />
+                ))}
+              </Stack>
             </Detail>
           </Stack>
         </Section>
