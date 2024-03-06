@@ -5,7 +5,11 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import EmailIcon from "@mui/icons-material/Email";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 
-const AboutProfile = ({ name, email, username }) => {
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import GppGoodIcon from "@mui/icons-material/GppGood";
+import SafetyCheckIcon from "@mui/icons-material/SafetyCheck";
+
+const AboutProfile = ({ name, email, userType, username }) => {
   const Detail = ({ icon, title }) => (
     <Stack direction="row" gap={1} alignItems="center">
       {icon}
@@ -14,6 +18,18 @@ const AboutProfile = ({ name, email, username }) => {
       </Typography>
     </Stack>
   );
+  let icon;
+  switch (userType) {
+    case "Admin":
+      icon = <AdminPanelSettingsIcon />;
+      break;
+    case "Registered":
+      icon = <GppGoodIcon />;
+      break;
+    default:
+      icon = <SafetyCheckIcon />;
+      break;
+  }
   return (
     <Grid xs={12} md={4}>
       <Card
@@ -34,6 +50,7 @@ const AboutProfile = ({ name, email, username }) => {
           <Detail icon={<BadgeIcon />} title={name} />
           <Detail icon={<EmailIcon />} title={email} />
           <Detail icon={<AlternateEmailIcon />} title={username} />
+          <Detail icon={icon} title={`${userType} User`} />
         </Stack>
       </Card>
     </Grid>
