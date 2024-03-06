@@ -206,10 +206,12 @@ const GetInvolvedSection = () => {
       }}
     >
       <Card
+        elevation={0}
         sx={{
           borderRadius: 2,
           width: "100%",
           height: "100%",
+          boxShadow: "#919eab33 0px 0px 2px 0px, #919eab1f 0px 12px 24px -4px",
         }}
       >
         <CardContent>
