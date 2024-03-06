@@ -21,6 +21,7 @@ const ResourcePaper = ({
   _id,
   title,
   description,
+  files,
   filePath,
   fileName,
   category,
@@ -42,20 +43,20 @@ const ResourcePaper = ({
       }}
     >
       <Stack gap={1} p={3} bgcolor="#fee9d1">
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
-          <Image
-            src={getFileIcon(filePath)}
-            alt={fileName}
-            width={50}
-            height={50}
-          />
-          <IconButton onClick={handleClick}>
-            <OpenInNewIcon />
-          </IconButton>
+        <Stack direction="row" spacing={-2.5} alignItems="flex-end">
+          {files?.slice(0, 3).map((file) => (
+            <Image
+              src={getFileIcon(file.path)}
+              alt="File Icon"
+              width={50}
+              height={50}
+            />
+          ))}
+          {files.length > 3 && (
+            <Typography variant="h5" pl={2}>
+              ...
+            </Typography>
+          )}
         </Stack>
         <Stack
           sx={{
@@ -66,9 +67,6 @@ const ResourcePaper = ({
           <Typography variant="h6">{title}</Typography>
           <Typography variant="subtitle2" fontWeight={600} color="#585858">
             {category}
-          </Typography>
-          <Typography variant="caption" fontWeight={500} color="#585858">
-            12k downloads
           </Typography>
         </Stack>
 
@@ -90,7 +88,11 @@ const ResourcePaper = ({
           component={Link}
           href={`/profile/${uploader?._id}`}
         >
-          <Avatar src={uploader?.name} alt={uploader?.name} sx={{ mr: 1 }} />
+          <Avatar
+            alt={uploader?.name}
+            src={uploader?.profilePath || "/assets/profile/img-1.png"}
+            sx={{ mr: 1 }}
+          />
           <ListItemText
             primary={uploader?.name}
             primaryTypographyProps={{
