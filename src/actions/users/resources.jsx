@@ -32,7 +32,6 @@ export const createUserResource = async (data) => {
 
   if (result.status == "success") {
     revalidateTag("resources");
-    return result;
   }
   return result;
 };
