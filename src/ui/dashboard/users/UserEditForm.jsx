@@ -1,17 +1,13 @@
 "use client";
 import { useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
 
 import {
   Box,
-  Button,
   Card,
   CardHeader,
-  CircularProgress,
   FormControl,
   InputAdornment,
   InputLabel,
-  LinearProgress,
   MenuItem,
   Select,
   Stack,
@@ -22,33 +18,10 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import UploadProfilePic from "@/components/UploadProfilePic";
 import { editUser } from "@/actions/admin/users";
 import SubmitBtn from "@/components/SubmitBtn";
-import Section from "@/components/Section";
 
-const uploadImage = async (file) => {
-  const formData = new FormData();
-
-  formData.append("image", file);
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/upload/image`,
-    {
-      method: "POST",
-      body: formData,
-    }
-  );
-
-  const result = await response.json();
-
-  if (result.status === "fail") {
-    enqueueSnackbar("Upload failed.", { variant: "fail" });
-    return null;
-  }
-  return result.data[0].path;
-};
+import { uploadImage } from "@/utils/upload";
 
 const UserEditForm = ({ user }) => {
-  // const [state, formAction] = useFormState(editUser, null);
-
   const [formData, setFormData] = useState(user);
 
   const [profilePic, setProfilePic] = useState(null);
@@ -70,8 +43,6 @@ const UserEditForm = ({ user }) => {
     if (profilePic) {
       let profilePath = await uploadImage(profilePic);
       updated_user.profilePath = profilePath;
-
-      console.log("Image uploaded", profilePath);
     }
 
     let result = await editUser(updated_user);
