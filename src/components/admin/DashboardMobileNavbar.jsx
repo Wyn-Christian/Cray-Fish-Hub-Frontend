@@ -9,7 +9,14 @@ import navLinks from "@/constants/navLinks";
 
 const DashboardMobileNavBar = ({ toggleDrawer }) => {
   return (
-    <Box sx={{ overflow: "auto", height: "100%", width: navbarsize.sidebar }}>
+    <Box
+      sx={{
+        overflow: "auto",
+        height: "100%",
+        width: navbarsize.sidebar,
+        pb: 20,
+      }}
+    >
       <MuiLink
         variant="inherit"
         component={Link}
