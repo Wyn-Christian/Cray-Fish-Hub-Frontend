@@ -108,8 +108,9 @@ const ResourcePaper = ({
           </Typography>
         </Stack>
         <Stack direction="row" spacing={-2.5} alignItems="flex-end">
-          {files?.slice(0, 3).map((file) => (
+          {files?.slice(0, 3).map((file, i) => (
             <Image
+              key={i}
               src={getFileIcon(file.path)}
               alt="File Icon"
               width={50}
