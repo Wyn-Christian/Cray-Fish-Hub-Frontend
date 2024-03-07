@@ -1,14 +1,19 @@
-import CreateForumPost from "@/components/CreateForumPost";
-import ThreadPost from "@/components/ThreadPost";
+import moment from "moment";
+
 import {
   Avatar,
   Box,
   Container,
+  ImageList,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+
+import CreateForumPost from "@/components/CreateForumPost";
+import PreviewImage from "@/components/PreviewImage";
+import ThreadPost from "@/components/ThreadPost";
+import ThreadsImages from "@/components/ThreadsImages";
 
 const ThreadHeader = ({ category }) => (
   <Box
@@ -43,11 +48,12 @@ const ThreadHeader = ({ category }) => (
   </Box>
 );
 
-const ThreadDetail = ({ title, createdAt, author }) => {
+const ThreadDetail = ({ title, createdAt, images, author }) => {
   return (
     <Paper sx={{ p: 2 }} elevation={0}>
       <Stack gap={2}>
         <Typography variant="h3">{title}</Typography>
+        {!!images.length && <ThreadsImages images={images} />}
 
         <Stack direction="row" gap={2} alignItems="center">
           <Avatar
