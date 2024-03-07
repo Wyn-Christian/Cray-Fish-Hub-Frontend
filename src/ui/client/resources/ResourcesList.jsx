@@ -11,8 +11,6 @@ import {
 } from "@mui/material";
 import Masonry from "@mui/lab/Masonry";
 
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import DownloadIcon from "@mui/icons-material/Download";
 import getFileIcon from "@/utils/getFileIcon";
 import moment from "moment";
 import SearchField from "@/components/admin/SearchField";
@@ -22,15 +20,11 @@ const ResourcePaper = ({
   title,
   description,
   files,
-  filePath,
-  fileName,
+
   category,
   createdAt,
   uploader,
 }) => {
-  const handleClick = () => {
-    window.open(filePath, "_blank", "noopener,noreferrer");
-  };
   return (
     <Stack
       sx={{
@@ -44,8 +38,9 @@ const ResourcePaper = ({
     >
       <Stack gap={1} p={3} bgcolor="#fee9d1">
         <Stack direction="row" spacing={-2.5} alignItems="flex-end">
-          {files?.slice(0, 3).map((file) => (
+          {files?.slice(0, 3).map((file, i) => (
             <Image
+              key={i}
               src={getFileIcon(file.path)}
               alt="File Icon"
               width={50}
@@ -59,9 +54,16 @@ const ResourcePaper = ({
           )}
         </Stack>
         <Stack
+          component={Link}
+          href={`/resources/${_id}`}
           sx={{
             textDecoration: "none",
             color: "inherit",
+            "&:hover": {
+              "& .MuiTypography-h6": {
+                textDecoration: "underline",
+              },
+            },
           }}
         >
           <Typography variant="h6">{title}</Typography>
