@@ -147,7 +147,7 @@ const UploadResourceForm = ({ userType, _id: userId }) => {
 
             <UploadDocument allFiles={files} setAllFiles={setFiles} />
 
-            <Box alignSelf="flex-end" width={{ xs: "100%", sm: "auto" }}>
+            <Box alignSelf="flex-end" width="auto">
               <SubmitBtn
                 title={
                   isUserRegistered
