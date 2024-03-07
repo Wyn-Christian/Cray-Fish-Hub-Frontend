@@ -31,25 +31,23 @@ export const getThreadDetails = async (id) => {
   return result;
 };
 
-export const createThread = async (currentState, formData) => {
-  const new_thread = Object.fromEntries(formData);
-
-  new_thread.author = cookies().get("currentUser").value;
+export const createThread = async (data) => {
+  data.author = cookies().get("currentUser").value;
 
   const response = await fetch(`${process.env.SERVER_URL}/forumthreads`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(new_thread),
+    body: JSON.stringify(data),
   });
 
   const result = await response.json();
 
   if (result.status == "success") {
     revalidateTag("threads");
-    redirect(`/admin/forums/details/${result.data[0]._id}`);
   }
+  return result;
 };
 
 export const getAllPostsByThreads = async (id) => {
