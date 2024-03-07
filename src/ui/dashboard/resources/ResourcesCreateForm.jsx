@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { enqueueSnackbar } from "notistack";
+import { redirect } from "next/navigation";
 
 import {
   Box,
@@ -17,31 +19,8 @@ import Section from "@/components/Section";
 import UploadDocument from "@/components/UploadDocument";
 import { createResource } from "@/actions/admin/resources";
 import SubmitBtn from "@/components/SubmitBtn";
-import { enqueueSnackbar } from "notistack";
-import { redirect } from "next/navigation";
 
-const uploadDocuments = async (files) => {
-  const formData = new FormData();
-  files.forEach((file) => {
-    formData.append("documents", file, file.name);
-  });
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/upload/documents`,
-    {
-      method: "POST",
-      body: formData,
-    }
-  );
-
-  const result = await response.json();
-
-  if (files.status === "fail") {
-    enqueueSnackbar("Upload failed.", { variant: "fail" });
-    return null;
-  }
-  return result.data;
-};
+import { uploadDocuments } from "@/utils/upload";
 
 const ResourcesCreateForm = ({ user }) => {
   const [files, setFiles] = useState([]);
