@@ -51,7 +51,7 @@ const UploadDocument = ({
       file={file}
     />
   ));
-  const files = allFiles.map((file, i) => (
+  const files = allFiles?.map((file, i) => (
     <ItemDocument key={i} index={i} removeFile={removeFile} file={file} />
   ));
 
