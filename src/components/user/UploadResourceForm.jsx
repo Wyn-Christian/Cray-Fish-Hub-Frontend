@@ -23,9 +23,11 @@ import Section from "../Section";
 import { createUserResource } from "@/actions/users/resources";
 import { enqueueSnackbar } from "notistack";
 
-const uploadImage = async (files) => {
+const uploadDocuments = async (files) => {
   const formData = new FormData();
-  formData.append("documents", files);
+  files.forEach((file) => {
+    formData.append("documents", file, file.name);
+  });
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/upload/documents`,
@@ -36,10 +38,15 @@ const uploadImage = async (files) => {
   );
 
   const result = await response.json();
+
+  if (files.status === "fail") {
+    enqueueSnackbar("Upload failed.", { variant: "fail" });
+    return null;
+  }
   return result.data;
 };
 
-const UploadResourceForm = ({ userType, _id }) => {
+const UploadResourceForm = ({ userType, _id: userId }) => {
   const isUserRegistered = userType === "Registered";
 
   const [files, setFiles] = useState([]);
@@ -60,30 +67,33 @@ const UploadResourceForm = ({ userType, _id }) => {
   };
 
   async function formAction() {
-    if (!files) return;
+    if (!files.length) {
+      enqueueSnackbar("Upload at least 1 document...", { variant: "warning" });
+      return;
+    }
 
-    const fileinfo = await uploadImage(files);
+    const uploaded_files = await uploadDocuments(files);
+
+    if (!uploaded_files) return;
 
     const new_resource = {
       ...formData,
-      uploader: _id,
-      status: "Pending",
-      filePath: fileinfo.path,
-      fileSize: fileinfo.size,
-      fileName: fileinfo.name,
+      uploader: userId,
+      files: uploaded_files,
     };
 
-    const result = await createUserResource(new_resource);
+    let result = await createUserResource(new_resource);
 
-    if (result?.status === "success") {
+    if (result.status === "success") {
+      enqueueSnackbar("Create Resource successfully!", { variant: "success" });
       setFormData({
         title: "",
         description: "",
         category: "",
       });
-
-      setFiles(null);
-      enqueueSnackbar("Resource Uploaded Successfully", { variant: "success" });
+      setFiles([]);
+    } else {
+      enqueueSnackbar("Create Resource failed!", { variant: "error" });
     }
   }
 
