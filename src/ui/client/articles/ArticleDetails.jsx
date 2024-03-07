@@ -1,20 +1,18 @@
-import ArticleComment from "@/components/ArticleComment";
-import CreateArticleComment from "@/components/CreateArticleComment";
-import DisplayContent from "@/components/DisplayContent";
-import SubmitBtn from "@/components/SubmitBtn";
-import articleSample from "@/constants/articleSample";
+import moment from "moment";
+
 import {
   Avatar,
   Box,
-  Button,
   Container,
   Divider,
   ListItemText,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+
+import ArticleComment from "@/components/ArticleComment";
+import CreateArticleComment from "@/components/CreateArticleComment";
+import DisplayContent from "@/components/DisplayContent";
 
 const ArticleHeader = ({ title, author, createdAt }) => (
   <Box
