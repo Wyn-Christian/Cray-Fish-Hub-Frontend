@@ -13,7 +13,7 @@ const ProfileTab = ({ value, index, user }) => {
       <TabHeader title="Profile" />
 
       <Grid container spacing={3}>
-        <PersonalDetailsForm {...user} />
+        <PersonalDetailsForm user={user} />
 
         <ChangePasswordForm {...user} />
       </Grid>
