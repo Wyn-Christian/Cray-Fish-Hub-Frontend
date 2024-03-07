@@ -31,15 +31,13 @@ export const getProfileDetail = async (id) => {
   return result.data[0];
 };
 
-export const updateUser = async (currentState, formData) => {
-  const user = Object.fromEntries(formData);
-
-  const response = await fetch(`${process.env.SERVER_URL}/users/${user.id}`, {
+export const updateUser = async (data) => {
+  const response = await fetch(`${process.env.SERVER_URL}/users/${data._id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(user),
+    body: JSON.stringify(data),
   });
 
   const result = await response.json();
