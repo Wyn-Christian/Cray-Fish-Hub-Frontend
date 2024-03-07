@@ -7,16 +7,30 @@ import {
   Typography,
   Avatar,
   Box,
+  ImageList,
 } from "@mui/material";
 
 import CreateForumPost from "@/components/CreateForumPost";
 import ThreadPost from "@/components/ThreadPost";
+import PreviewImage from "@/components/PreviewImage";
+
+const ThreadsImages = ({ images }) => (
+  <Box sx={{ width: "100%", maxHeight: 450, overflowY: "auto", mt: 2 }}>
+    <ImageList variant="masonry" cols={2} gap={8}>
+      {images.map((image, i) => (
+        <PreviewImage key={i} src={image.path} alt={`Preview ${i}`} />
+      ))}
+    </ImageList>
+  </Box>
+);
 
 const ThreadDetail = ({ thread, author }) => {
   return (
     <Paper sx={{ pb: 2, px: [0, 2] }} elevation={0}>
       <Stack gap={2}>
         <Typography variant="h3">{thread?.title}</Typography>
+
+        {!!thread?.images.length && <ThreadsImages images={thread?.images} />}
 
         <Stack direction="row" gap={2} alignItems="center">
           <Avatar
