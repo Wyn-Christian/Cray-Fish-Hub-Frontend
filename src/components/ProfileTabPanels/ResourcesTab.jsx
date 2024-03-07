@@ -17,14 +17,10 @@ const ResourcePaper = ({
   _id,
   title,
   description,
-  filePath,
-  fileName,
+  files,
   category,
   createdAt,
 }) => {
-  const handleClick = () => {
-    window.open(filePath, "_blank", "noopener,noreferrer");
-  };
   return (
     <Stack
       component={href ? Link : "div"}
@@ -45,20 +41,21 @@ const ResourcePaper = ({
       }}
     >
       <Stack gap={1} p={3} bgcolor="#fee9d1">
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
-          <Image
-            src={getFileIcon(filePath)}
-            alt={fileName}
-            width={50}
-            height={50}
-          />
-          <IconButton onClick={handleClick}>
-            <OpenInNewIcon />
-          </IconButton>
+        <Stack direction="row" spacing={-2.5} alignItems="flex-end">
+          {files?.slice(0, 3).map((file, i) => (
+            <Image
+              key={i}
+              src={getFileIcon(file.path)}
+              alt="File Icon"
+              width={50}
+              height={50}
+            />
+          ))}
+          {files.length > 3 && (
+            <Typography variant="h5" pl={2}>
+              ...
+            </Typography>
+          )}
         </Stack>
         <Stack
           sx={{
