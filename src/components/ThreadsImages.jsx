@@ -7,7 +7,7 @@ const ThreadsImages = ({ images }) => (
     sx={{
       m: "auto",
       width: "100%",
-      maxWidth: 700,
+      maxWidth: 650,
       maxHeight: 450,
       overflowY: "auto",
       mt: 2,
