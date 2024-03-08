@@ -29,14 +29,15 @@ const CreateForumPost = ({ threadId, user }) => {
           <TextField
             name="content"
             multiline
-            label="Add a post..."
+            label={user ? "Add a post..." : "Log in first..."}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             fullWidth
             minRows={3}
+            disabled={user === null}
           />
 
-          <SubmitBtn title="Post" disabled={!content} />
+          <SubmitBtn title="Post" disabled={!content || user === null} />
         </Stack>
       </Paper>
     </form>
