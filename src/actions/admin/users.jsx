@@ -74,3 +74,23 @@ export const adminOverview = async () => {
 
   return result?.data;
 };
+
+export const deleteUser = async (currentState, formData) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/users/${formData.get("id")}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status == "success") {
+    revalidateTag("users");
+  }
+
+  return result;
+};
