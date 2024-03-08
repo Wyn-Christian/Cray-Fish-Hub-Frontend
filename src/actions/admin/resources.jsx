@@ -86,7 +86,6 @@ export const updateResource = async (data) => {
   if (result.status == "success") {
     revalidateTag("resources");
   }
-  console.log(result);
   return result;
 };
 
