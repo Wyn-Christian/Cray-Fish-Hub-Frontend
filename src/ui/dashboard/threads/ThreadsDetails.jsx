@@ -30,7 +30,7 @@ const ThreadDetail = ({ thread, author }) => {
       <Stack gap={2}>
         <Typography variant="h3">{thread?.title}</Typography>
 
-        {!!thread?.images.length && <ThreadsImages images={thread?.images} />}
+        {!!thread?.images?.length && <ThreadsImages images={thread?.images} />}
 
         <Stack direction="row" gap={2} alignItems="center">
           <Avatar
