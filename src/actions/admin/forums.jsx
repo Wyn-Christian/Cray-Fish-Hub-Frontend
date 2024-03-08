@@ -9,7 +9,7 @@ export const getAllThreads = async (searchParams) => {
 
   const response = await fetch(
     `${process.env.SERVER_URL}/forumthreads?${params.toString()}`,
-    { next: { tags: ["threads"] }, cache: "no-cache" }
+    { next: { tags: ["threads"] }, cache: "no-store" }
   );
 
   const result = await response.json();
@@ -19,6 +19,7 @@ export const getAllThreads = async (searchParams) => {
 
 export const getThreadDetails = async (id) => {
   const response = await fetch(`${process.env.SERVER_URL}/forumthreads/${id}`, {
+    cache: "no-store",
     next: { tags: ["threads"] },
   });
 

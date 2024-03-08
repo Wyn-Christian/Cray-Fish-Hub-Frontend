@@ -16,6 +16,7 @@ export const getAllUsers = async (page = 1, limit = 100) => {
 
 export const getUserDetail = async (id) => {
   const response = await fetch(`${process.env.SERVER_URL}/users/${id}`, {
+    cache: "no-store",
     next: { tags: ["users"] },
   });
 

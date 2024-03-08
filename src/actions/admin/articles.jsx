@@ -21,6 +21,7 @@ export const getAllArticles = async (searchParams) => {
 
 export const getArticleDetail = async (id) => {
   const response = await fetch(`${process.env.SERVER_URL}/articles/${id}`, {
+    cache: "no-store",
     next: { tags: ["articles"] },
   });
 
