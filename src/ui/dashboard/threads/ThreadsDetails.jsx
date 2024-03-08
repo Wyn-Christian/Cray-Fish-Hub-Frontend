@@ -72,7 +72,9 @@ const ThreadsDetails = ({ thread, author, posts, user }) => {
 
       <Stack gap={1}>
         {posts.map((post) => {
-          return <ThreadPost key={post._id} {...post} user={user} />;
+          return (
+            <ThreadPost key={post._id} {...post} user={user} commentDeletable />
+          );
         })}
       </Stack>
     </Container>
