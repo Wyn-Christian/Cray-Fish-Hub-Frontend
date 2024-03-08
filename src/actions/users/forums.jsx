@@ -23,6 +23,7 @@ export const getAllThreadsByUser = async (userId) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/forumthreads/user/${userId}`,
     {
+      cache: "no-store",
       next: { tags: ["threads"] },
     }
   );
@@ -34,6 +35,7 @@ export const getAllThreadsByUser = async (userId) => {
 
 export const getThreadDetails = async (id) => {
   const response = await fetch(`${process.env.SERVER_URL}/forumthreads/${id}`, {
+    cache: "no-store",
     next: { tags: ["threads"] },
   });
 

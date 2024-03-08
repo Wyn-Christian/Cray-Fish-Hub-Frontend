@@ -11,6 +11,7 @@ export const getUserDetail = async () => {
   }
 
   let response = await fetch(`${process.env.SERVER_URL}/users/${userId}`, {
+    cache: "no-store",
     next: { tags: ["users"] },
   });
   const result = await response.json();
@@ -24,6 +25,7 @@ export const isUserLogin = () => {
 
 export const getProfileDetail = async (id) => {
   let response = await fetch(`${process.env.SERVER_URL}/users/${id}`, {
+    cache: "no-store",
     next: { tags: ["users"] },
   });
   const result = await response.json();
