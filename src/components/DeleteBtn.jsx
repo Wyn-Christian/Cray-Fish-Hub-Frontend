@@ -59,7 +59,7 @@ const DeleteBtn = ({ title, action, href, id, iconOnly = false }) => {
     <>
       {iconOnly ? (
         <IconButton size="small" disableRipple onClick={handleClickOpen}>
-          <DeleteForeverIcon />
+          <DeleteForeverIcon color="error" />
         </IconButton>
       ) : (
         <Button
