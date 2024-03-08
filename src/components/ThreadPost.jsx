@@ -94,6 +94,7 @@ const ThreadPost = ({ _id, content, author, createdAt, user, comments }) => {
 
           <Stack>
             {openReply && <CreateComment postId={_id} user={user} />}
+
             {showComments &&
               comments.map((comment) => (
                 <PostComment key={comment._id} {...comment} postId={_id} />
