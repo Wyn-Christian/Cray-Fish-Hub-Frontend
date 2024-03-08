@@ -10,13 +10,14 @@ const ArticleComment = ({
   author,
   content,
   createdAt,
-  isDeletable = false,
+  href,
+  deletable = false,
 }) => {
   return (
     <Stack direction="row" gap={1}>
       <Box
         component={Link}
-        href={`/profile/${author._id}`}
+        href={href || `/profile/${author._id}`}
         sx={{ textDecoration: "none" }}
       >
         <Avatar
@@ -29,7 +30,7 @@ const ArticleComment = ({
           <Box>
             <Box
               component={Link}
-              href={`/profile/${author._id}`}
+              href={href || `/profile/${author._id}`}
               sx={{
                 textDecoration: "none",
                 color: "inherit",
@@ -42,7 +43,7 @@ const ArticleComment = ({
               {moment(createdAt).fromNow()}
             </Typography>
           </Box>
-          {isDeletable && (
+          {deletable && (
             <DeleteBtn
               title="Delete this comment?"
               action={deleteArticleComment}
