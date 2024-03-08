@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import { enqueueSnackbar } from "notistack";
+import { redirect } from "next/navigation";
 
 import {
   Button,
@@ -10,14 +12,12 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  LinearProgress,
+  IconButton,
 } from "@mui/material";
 
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { enqueueSnackbar } from "notistack";
-import { redirect } from "next/navigation";
 
-const DeleteBtn = ({ title, action, href, id }) => {
+const DeleteBtn = ({ title, action, href, id, iconOnly = false }) => {
   const [state, formAction] = useFormState(action, null);
 
   const [open, setOpen] = useState(false);
@@ -25,7 +25,12 @@ const DeleteBtn = ({ title, action, href, id }) => {
   useEffect(() => {
     if (state?.status === "success") {
       enqueueSnackbar("Deletion Success!", { variant: "success" });
-      redirect(href);
+
+      if (href) {
+        redirect(href);
+      } else {
+        setOpen(false);
+      }
     }
     if (state?.status === "fail") {
       enqueueSnackbar("Deletion Failed!", { variant: "error" });
@@ -52,16 +57,20 @@ const DeleteBtn = ({ title, action, href, id }) => {
 
   return (
     <>
-      <Button
-        startIcon={<DeleteForeverIcon />}
-        size="small"
-        variant="outlined"
-        // LinkComponent={Link}
-        // href={`/admin/articles/edit/${id}`}
-        onClick={handleClickOpen}
-      >
-        Delete
-      </Button>
+      {iconOnly ? (
+        <IconButton size="small" disableRipple onClick={handleClickOpen}>
+          <DeleteForeverIcon />
+        </IconButton>
+      ) : (
+        <Button
+          startIcon={<DeleteForeverIcon />}
+          size="small"
+          variant="outlined"
+          onClick={handleClickOpen}
+        >
+          Delete
+        </Button>
+      )}
 
       <Dialog
         open={open}
