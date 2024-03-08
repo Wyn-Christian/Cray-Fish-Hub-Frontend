@@ -50,6 +50,26 @@ export const createThread = async (data) => {
   return result;
 };
 
+export const updateThread = async (data) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/forumthreads/${data._id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status == "success") {
+    revalidateTag("threads");
+  }
+  return result;
+};
+
 export const getAllPostsByThreads = async (id) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/forumposts/thread/${id}`,
