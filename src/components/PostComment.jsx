@@ -17,26 +17,26 @@ const PostComment = ({
   content,
   createdAt,
   author,
-  isDeletable = false,
+  deletable = false,
 }) => {
   return (
     <Fade in>
       <Paper sx={{ pt: 1, height: "100%" }} elevation={0}>
-        <Stack direction="row" justifyContent="space-between">
-          <Stack gap={1} direction="row">
-            <Stack alignItems="center" gap={0.5}>
-              <Avatar
-                alt={author?.name}
-                src={author?.profilePath || "/assets/profile/img-1.png"}
-                sx={{ width: 50, height: 50 }}
-              />
-              <Box height="100%">
-                <Divider orientation="vertical" />
-              </Box>
-            </Stack>
+        <Stack gap={1} direction="row">
+          <Stack alignItems="center" gap={0.5}>
+            <Avatar
+              alt={author?.name}
+              src={author?.profilePath || "/assets/profile/img-1.png"}
+              sx={{ width: 50, height: 50 }}
+            />
+            <Box height="100%">
+              <Divider orientation="vertical" />
+            </Box>
+          </Stack>
 
-            <Stack>
-              <Stack>
+          <Stack width="100%">
+            <Stack direction="row" justifyContent="space-between">
+              <Stack justifyContent="center">
                 <Stack
                   direction={["column", "row"]}
                   alignItems={{ sm: "center" }}
@@ -57,17 +57,17 @@ const PostComment = ({
                   </Typography>
                 </Stack>
               </Stack>
-
-              <Typography variant="body1">{content}</Typography>
+              {deletable && (
+                <DeleteBtn
+                  id={_id}
+                  title="Delete this post comment?"
+                  action={deletePostComment}
+                  iconOnly
+                />
+              )}
             </Stack>
+            <Typography variant="body1">{content}</Typography>
           </Stack>
-
-          <DeleteBtn
-            id={_id}
-            title="Delete this post comment?"
-            action={deletePostComment}
-            iconOnly
-          />
         </Stack>
       </Paper>
     </Fade>
