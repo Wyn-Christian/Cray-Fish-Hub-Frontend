@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 
 import {
   Avatar,
@@ -47,7 +48,18 @@ const ArticleHeader = ({ title, author, createdAt }) => (
             sx={{ width: 50, height: 50 }}
           />
           <ListItemText
-            primaryTypographyProps={{ variant: "h6" }}
+            primaryTypographyProps={{
+              variant: "h6",
+              component: Link,
+              href: `/profile/${author?._id}`,
+              sx: {
+                textDecoration: "none",
+                color: "inherit",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              },
+            }}
             primary={author?.name}
             secondary={moment(createdAt).format("MMM DD, YYYY")}
           />
@@ -64,7 +76,8 @@ const ArticleDetails = ({
   author,
   createdAt,
   comments,
-  isLogin,
+  commentDeletable = false,
+  user,
 }) => {
   return (
     <Box>
@@ -87,14 +100,20 @@ const ArticleDetails = ({
             )}
           </Stack>
 
-          <CreateArticleComment articleId={_id} isLogin={!!isLogin} />
+          <CreateArticleComment articleId={_id} isLogin={user !== null} />
 
           <Divider />
 
           <Stack gap={2}>
             {!!comments.length &&
               comments.map((comment) => (
-                <ArticleComment key={comment._id} {...comment} />
+                <ArticleComment
+                  key={comment._id}
+                  {...comment}
+                  deletable={
+                    commentDeletable || comment.author._id === user?._id
+                  }
+                />
               ))}
           </Stack>
         </Stack>
