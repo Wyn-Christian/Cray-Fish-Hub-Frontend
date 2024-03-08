@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import { Box, ImageList, Stack, Typography } from "@mui/material";
@@ -16,10 +16,15 @@ const UploadThreadImages = ({
 }) => {
   const [previewPhotos, setPreviewPhotos] = useState([]);
 
+  let totalImages = useMemo(
+    () => previewPhotos.length + uploadedImages.length,
+    [uploadedImages, previewPhotos]
+  );
+
+  console.log({ totalImages });
+
   const onDrop = useCallback(
     (acceptedFiles) => {
-      let totalImages = previewPhotos.length + uploadedImages.length;
-
       if (totalImages + acceptedFiles.length >= 10) {
         enqueueSnackbar("Image upload exceeded (Max of 10)", {
           variant: "warning",
