@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { enqueueSnackbar } from "notistack";
 import { redirect } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
 
 import {
   Box,
@@ -12,15 +12,15 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 import Section from "@/components/Section";
 import UploadDocument from "@/components/UploadDocument";
 import SubmitBtn from "@/components/SubmitBtn";
 
-import { updateResource } from "@/actions/admin/resources";
 import { uploadDocuments } from "@/utils/upload";
+
+import { updateResource } from "@/actions/admin/resources";
 
 const ResourcesEditForm = ({ resource }) => {
   const [uploadedFiles, setUploadedFiles] = useState(resource.files);
