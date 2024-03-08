@@ -3,12 +3,10 @@ import moment from "moment";
 import {
   Avatar,
   Box,
-  Button,
   Container,
   Divider,
   ListItemText,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 
@@ -72,7 +70,11 @@ const ArticleDetails = ({
         <Stack gap={2}>
           {!!comments.length &&
             comments.map((comment) => (
-              <ArticleComment key={comment._id} {...comment} />
+              <ArticleComment
+                key={comment._id}
+                {...comment}
+                isDeletable={true}
+              />
             ))}
         </Stack>
       </Stack>
