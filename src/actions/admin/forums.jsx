@@ -161,3 +161,23 @@ export const deletePost = async (currentState, formData) => {
 
   return result;
 };
+
+export const deletePostComment = async (currentState, formData) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/comments/${formData.get("id")}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const result = await response.json();
+
+  if (result.status == "success") {
+    revalidateTag("posts");
+  }
+
+  return result;
+};
