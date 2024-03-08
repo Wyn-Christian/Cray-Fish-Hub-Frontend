@@ -3,6 +3,7 @@ import { Container } from "@mui/material";
 import DashboardBreadcrumbs from "@/components/admin/DashboardBreadcrumbs";
 
 import { getThreadDetails } from "@/actions/admin/forums";
+import ThreadsEditForm from "@/ui/dashboard/threads/ThreadsEditForm";
 
 const links = [
   {
@@ -30,6 +31,8 @@ const ForumEditPage = async ({ params }) => {
       }}
     >
       <DashboardBreadcrumbs title="Edit" links={links} />
+
+      <ThreadsEditForm thread={thread} />
     </Container>
   );
 };
