@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 
 import {
   Avatar,
@@ -26,7 +27,18 @@ const HeaderSection = ({ title, author, createdAt }) => {
           sx={{ width: 50, height: 50 }}
         />
         <ListItemText
-          primaryTypographyProps={{ variant: "h6" }}
+          primaryTypographyProps={{
+            variant: "h6",
+            component: Link,
+            href: `/admin/users/profile/${author?._id}`,
+            sx: {
+              textDecoration: "none",
+              color: "inherit",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            },
+          }}
           primary={author?.name}
           secondary={moment(createdAt).format("MMM DD, YYYY")}
         />
@@ -72,8 +84,9 @@ const ArticleDetails = ({
             comments.map((comment) => (
               <ArticleComment
                 key={comment._id}
+                href={`/admin/users/profile/${comment?.author?._id}`}
                 {...comment}
-                isDeletable={true}
+                deletable
               />
             ))}
         </Stack>
