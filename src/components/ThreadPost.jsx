@@ -19,7 +19,15 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import Link from "next/link";
 
-const ThreadPost = ({ _id, content, author, createdAt, user, comments }) => {
+const ThreadPost = ({
+  _id,
+  content,
+  author,
+  createdAt,
+  user,
+  comments,
+  commentDeletable = false,
+}) => {
   const [openReply, setOpenReply] = useState(false);
   const [showComments, setShowComments] = useState(false);
 
@@ -97,7 +105,14 @@ const ThreadPost = ({ _id, content, author, createdAt, user, comments }) => {
 
             {showComments &&
               comments.map((comment) => (
-                <PostComment key={comment._id} {...comment} postId={_id} />
+                <PostComment
+                  key={comment._id}
+                  {...comment}
+                  postId={_id}
+                  deletable={
+                    commentDeletable || comment.author._id === user?._id
+                  }
+                />
               ))}
           </Stack>
         </Stack>
