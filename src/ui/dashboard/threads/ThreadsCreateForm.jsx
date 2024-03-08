@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { redirect } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
 
 import {
   FormControl,
@@ -12,12 +14,12 @@ import {
 import Grid from "@mui/material/Unstable_Grid2";
 
 import Section from "@/components/Section";
-import { createThread } from "@/actions/admin/forums";
 import SubmitBtn from "@/components/SubmitBtn";
-import { uploadDocuments } from "@/utils/upload";
 import UploadThreadImages from "@/components/UploadThreadImages";
-import { enqueueSnackbar } from "notistack";
-import { redirect } from "next/navigation";
+
+import { uploadDocuments } from "@/utils/upload";
+
+import { createThread } from "@/actions/admin/forums";
 
 const ThreadsCreateForm = () => {
   const [images, setImages] = useState([]);
