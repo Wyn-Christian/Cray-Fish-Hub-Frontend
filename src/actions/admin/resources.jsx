@@ -24,6 +24,7 @@ export const getAllResourcesByUser = async (userId) => {
     `${process.env.SERVER_URL}/resources/user/${userId}`,
     {
       next: { tags: ["resources"] },
+      cache: "no-cache",
     }
   );
 
@@ -34,8 +35,8 @@ export const getAllResourcesByUser = async (userId) => {
 
 export const getResourcesDetails = async (id) => {
   const response = await fetch(`${process.env.SERVER_URL}/resources/${id}`, {
-    cache: "no-store",
     next: { tags: ["resources"] },
+    cache: "no-store",
   });
 
   const result = await response.json();
