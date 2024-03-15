@@ -1,24 +1,12 @@
 "use client";
 import { useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import Link from "next/link";
 import Image from "next/image";
 
-import {
-  Avatar,
-  Box,
-  IconButton,
-  ListItemText,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { Masonry } from "@mui/lab";
 
-import DownloadIcon from "@mui/icons-material/Download";
 import getFileIcon from "@/utils/getFileIcon";
 import moment from "moment";
 import ProfileLink from "@/components/ProfileLink";
@@ -73,7 +61,6 @@ const ResourcePaper = ({
   category,
   description,
   files,
-  filePath,
   createdAt,
   status,
 }) => {
