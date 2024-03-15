@@ -1,4 +1,5 @@
 import moment from "moment";
+import BadWordsFilter from "bad-words";
 
 import {
   Avatar,
@@ -19,6 +20,7 @@ const PostComment = ({
   author,
   deletable = false,
 }) => {
+  let filter = new BadWordsFilter();
   return (
     <Fade in>
       <Paper sx={{ pt: 1, height: "100%" }} elevation={0}>
@@ -66,7 +68,7 @@ const PostComment = ({
                 />
               )}
             </Stack>
-            <Typography variant="body1">{content}</Typography>
+            <Typography variant="body1">{filter.clean(content)}</Typography>
           </Stack>
         </Stack>
       </Paper>

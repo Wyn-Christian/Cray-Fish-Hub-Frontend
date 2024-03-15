@@ -2,6 +2,8 @@
 import { useState } from "react";
 import moment from "moment";
 
+import BadWordsFilter from "bad-words";
+
 const {
   Paper,
   Stack,
@@ -30,6 +32,8 @@ const ThreadPost = ({
 }) => {
   const [openReply, setOpenReply] = useState(false);
   const [showComments, setShowComments] = useState(false);
+
+  let filter = new BadWordsFilter();
 
   return (
     <Paper sx={{ px: [0, 2], pt: 1, height: "100%" }} elevation={0}>
@@ -74,7 +78,7 @@ const ThreadPost = ({
             </Stack>
           </Stack>
 
-          <Typography variant="body1">{content}</Typography>
+          <Typography variant="body1">{filter.clean(content)}</Typography>
           <Box>
             <Button
               disableRipple
